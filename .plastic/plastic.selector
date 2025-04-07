@@ -1,0 +1,4 @@
+repository "Hunt The Wumpus@BossBacon64@cloud"
+  path "/"
+    br "/main"
+    co "/main"
