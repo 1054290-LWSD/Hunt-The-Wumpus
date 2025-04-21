@@ -16,9 +16,13 @@ public class Inventory : MonoBehaviour
     [Header("Item List")]
     [SerializeField] Item[] items;
 
+    [Header("Debug")]
+    [SerializeField] Button giveItemButton;
+
     public void Awake()
     {
         Singleton = this;
+        giveItemButton.onClick.AddListener(delegate { SpawnInventoryItem(); });
     }
     void Update()
     {
@@ -37,5 +41,27 @@ public class Inventory : MonoBehaviour
         carriedItem = item;
         carriedItem.canvasGroup.blocksRaycasts = false;
         item.transform.SetParent(draggablesTransform);
+    }
+    public void SpawnInventoryItem(Item item = null)
+    {
+        Item _item = item;
+        if(_item == null)
+        { _item = PickRandomItem(); }
+
+        for (int i = 0; i < inventorySlots.Length; i++)
+        {
+            //Check if empty
+            if (inventorySlots[i].myItem == null)
+            {
+                Instantiate(itemPrefab, inventorySlots[i].transform).Initialize(_item, inventorySlots[i]);
+                break;
+            }
+        }
+    }
+
+    Item PickRandomItem()
+    {
+        int random = Random.Range(0, items.Length);
+        return items[random];
     }
 }
