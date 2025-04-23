@@ -33,14 +33,17 @@ public class Inventory : MonoBehaviour
 
     public void setCarriedItem(InventoryItem item)
     {
-        if (carriedItem != null)
-        {
-            item.activeSlot.SetItem(carriedItem);
-        }
+        // if (carriedItem != null)
+        // {
+        //     item.activeSlot.SetItem(carriedItem, true);
+        // }
 
         carriedItem = item;
-        carriedItem.canvasGroup.blocksRaycasts = false;
-        item.transform.SetParent(draggablesTransform);
+        if (item != null)
+        {
+            carriedItem.canvasGroup.blocksRaycasts = false;
+            item.transform.SetParent(draggablesTransform);
+        }
     }
     public void SpawnInventoryItem(Item item = null)
     {

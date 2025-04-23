@@ -10,6 +10,6 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 7d1ab3124cb748c40bc834615608d145, type: 3}
-  m_Name: Strawberry
+  m_Name: Null
   m_EditorClassIdentifier: 
-  sprite: {fileID: 21300000, guid: 87b5fe4caeafd2740a04b40ec65456a8, type: 3}
+  sprite: {fileID: 21300000, guid: d0a855cd2aa2f534194e2a49be780875, type: 3}

@@ -17,9 +17,24 @@ public class InventoryItem : MonoBehaviour//, IPointerClickHandler
     }
     public void Click(PointerEventData eventData)
     {
+
         if (eventData.button == PointerEventData.InputButton.Left)
         {
-            Inventory.Singleton.setCarriedItem(this);
+            //InventoryItem temp = Inventory.carriedItem;
+            if (Inventory.carriedItem == null)
+            {
+                Inventory.Singleton.setCarriedItem(this);
+                activeSlot.SetItem(null, true);
+            }
+            else
+            {
+                InventoryItem temp = activeSlot.myItem;
+                activeSlot.SetItem(Inventory.carriedItem, true);
+                Inventory.Singleton.setCarriedItem(temp);
+            }
+            //if (temp != null)
+            //    activeSlot.SetItem(temp, false);
+            //else Debug.Log("No Item In Cursor");
         }
     }
     public void Initialize(Item item, InventorySlot parent)

@@ -46,12 +46,14 @@ public class ClickHandler : MonoBehaviour, IPointerClickHandler
         }
         else
         {
+            
             Debug.Log("Other");
             if (otherSlot.myItem != null)
             {
                 otherSlot.myItem.Click(eventData);
+                
             }
-            else
+             else
             {
                 otherSlot.Click(eventData);
             }
