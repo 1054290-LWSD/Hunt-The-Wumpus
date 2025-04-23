@@ -47,6 +47,11 @@ public class Inventory : MonoBehaviour
     }
     public void SpawnInventoryItem(Item item = null)
     {
+        bool y = false;
+        foreach (InventorySlot invSlot in inventorySlots) {
+            if (invSlot.myItem == null) y = true;
+        }
+        if (!y) return;
         Item _item = item;
         if(_item == null)
         { _item = PickRandomItem(); }
@@ -64,7 +69,28 @@ public class Inventory : MonoBehaviour
 
     Item PickRandomItem()
     {
-        int random = Random.Range(0, items.Length);
+        int random = 0;
+        bool x = false;
+        while (!x)
+        {
+            random = Random.Range(0, items.Length);
+            bool y = false;
+            foreach (InventorySlot invSlot in inventorySlots) {
+                if (invSlot.myItem != null)
+                {
+                    if (items[random] != invSlot.myItem.myItem)
+                    {
+                        Debug.Log(items[random] + "   " + invSlot.myItem.myItem);
+                    }
+                    else
+                    {
+                        if (items[0]!= invSlot.myItem.myItem )
+                        y = true;
+                    }
+                }
+            }
+            if (!y) x = true;
+        }
         return items[random];
     }
 }
