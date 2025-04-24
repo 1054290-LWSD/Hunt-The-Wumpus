@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -71,26 +72,24 @@ public class Inventory : MonoBehaviour
     {
         int random = 0;
         bool x = false;
-        while (!x)
+        List<Item> itemsHad = new List<Item>();
+        foreach (InventorySlot i in inventorySlots)
         {
-            random = Random.Range(0, items.Length);
-            bool y = false;
-            foreach (InventorySlot invSlot in inventorySlots) {
-                if (invSlot.myItem != null)
-                {
-                    if (items[random] != invSlot.myItem.myItem)
-                    {
-                        Debug.Log(items[random] + "   " + invSlot.myItem.myItem);
-                    }
-                    else
-                    {
-                        if (items[0]!= invSlot.myItem.myItem )
-                        y = true;
-                    }
-                }
+            if (i.myItem != null)
+            {
+                itemsHad.Add(i.myItem.myItem);
             }
-            if (!y) x = true;
         }
-        return items[random];
+        HashSet<Item> itemsHadSet = new HashSet<Item>(itemsHad);
+        List<Item> possibleItems = items.Where(item => !itemsHadSet.Contains(item)).ToList();
+        if (possibleItems.Count == 0)
+        {
+            return items[0];
+        }
+        
+        random = Random.Range(0, possibleItems.Count - 1);
+        Debug.Log(string.Join(", ", possibleItems));
+        Debug.Log("Random Num: " + random + "  Item: " + items[random]);
+        return possibleItems[random];
     }
 }
