@@ -1,20 +1,47 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class EnemyHandler : MonoBehaviour
 {
     private int health = 50;
+    private int maxHealth = 50;
     private EventHandler eventHandler; // deals with all Enemies
 
     private float moveSpeed = 12f; // Speed Enemy moves
-    private float stopDistance = 3f; // How far away the Enemy will be before it stops moving
+    private float stopDistance = 10f; // How far away the Enemy will be before it stops moving
+    public Text healthText;
+    private Transform player;
+    private Camera mainCamera;
     public void SetSpawner(EventHandler eHandler)
     {
         eventHandler = eHandler; // Called when the enemy is spawned
+        player = eHandler.player;
+    }
+    void Start()
+    {
+        mainCamera = Camera.main;
+        if (healthText == null)
+        {
+            Transform textTransform = transform.Find("Canvas/HealthText");
+            if (textTransform != null)
+            {
+                healthText = textTransform.GetComponent<Text>();
+            }
+        }
+        UpdateHealthText();
     }
     void Update()
     {
+        if (healthText != null && mainCamera != null)
+        {
+            healthText.transform.rotation = Quaternion.LookRotation(
+                healthText.transform.position - mainCamera.transform.position
+            );
+        }
+
+
         Vector3 direction = eventHandler.player.position - transform.position;
 
         // Ignore vertical difference for rotation
@@ -30,7 +57,6 @@ public class EnemyHandler : MonoBehaviour
         }
 
         // Check if too close
-
         if (distanceToPlayer > stopDistance)
         {
             // Move only if far enough
@@ -48,7 +74,15 @@ public class EnemyHandler : MonoBehaviour
             {
                 eventHandler.RemoveEnemy(gameObject);
             }
-
+            eventHandler.runUpdateCycle();
+        }
+        UpdateHealthText();
+    }
+    void UpdateHealthText()
+    {
+        if (healthText != null)
+        {
+            healthText.text = health.ToString() + "/" + maxHealth.ToString();
         }
     }
 }

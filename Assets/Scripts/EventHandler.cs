@@ -1,18 +1,28 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class EventHandler : MonoBehaviour
 {
     public GameObject enemyPrefab;
     public Transform player;  // Drag the player Transform here
-    private int numberOfEnemies = 100;
+    private int numberOfEnemies = 10;
     private float minSpawnDistance = 50f;
     private float maxSpawnDistance = 100f;
-    public List<GameObject> spawnedEnemies = new List<GameObject>();
+    public Text enemyCountText;
+    public List<GameObject> allEnemies = new List<GameObject>();
+    
     void Start()
     {
         SpawnEnemies(numberOfEnemies, minSpawnDistance, maxSpawnDistance);
+    }
+    public void runUpdateCycle()
+    {
+        if (enemyCountText != null)
+        {
+            enemyCountText.text = "Enemies Left: " + allEnemies.Count;
+        }
     }
     public void SpawnEnemies(int numEnemies, float minDistance, float maxDistance)
     {
@@ -32,7 +42,7 @@ public class EventHandler : MonoBehaviour
 
             // Spawn enemy
             GameObject enemy = Instantiate(enemyPrefab, spawnPos, Quaternion.identity);
-            spawnedEnemies.Add(enemy);
+            allEnemies.Add(enemy);
 
             // Gives refrence for EnemyHandler
             EnemyHandler enemyHandler = enemy.GetComponent<EnemyHandler>();
@@ -40,10 +50,12 @@ public class EventHandler : MonoBehaviour
             {
                 enemyHandler.SetSpawner(this);
             }
+            
         }
+        runUpdateCycle();
     }
     public void RemoveEnemy(GameObject enemy)
     {
-        spawnedEnemies.Remove(enemy);
+        allEnemies.Remove(enemy);
     }
 }
