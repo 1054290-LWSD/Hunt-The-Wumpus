@@ -7,7 +7,7 @@ public class EnemyHandler : MonoBehaviour
 {
     private int health = 50;
     private int maxHealth = 50;
-    private EventHandler eventHandler; // deals with all Enemies
+    public EventHandler eventHandler; // deals with all Enemies
 
     private float moveSpeed = 12f; // Speed Enemy moves
     private float stopDistance = 10f; // How far away the Enemy will be before it stops moving
@@ -17,7 +17,7 @@ public class EnemyHandler : MonoBehaviour
     public void SetSpawner(EventHandler eHandler)
     {
         eventHandler = eHandler; // Called when the enemy is spawned
-        player = eHandler.player;
+        player = eHandler.player.transform;
     }
     void Start()
     {
@@ -42,7 +42,7 @@ public class EnemyHandler : MonoBehaviour
         }
 
 
-        Vector3 direction = eventHandler.player.position - transform.position;
+        Vector3 direction = eventHandler.player.transform.position - transform.position;
 
         // Ignore vertical difference for rotation
         direction.y = 0;

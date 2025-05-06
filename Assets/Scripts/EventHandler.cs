@@ -6,7 +6,7 @@ using UnityEngine.UI;
 public class EventHandler : MonoBehaviour
 {
     public GameObject enemyPrefab;
-    public Transform player;  // Drag the player Transform here
+    public GameObject player;  // Drag the player Transform here
     private int numberOfEnemies = 10;
     private float minSpawnDistance = 50f;
     private float maxSpawnDistance = 100f;
@@ -37,7 +37,7 @@ public class EventHandler : MonoBehaviour
             // Random Y height offset
 
             // Calculate spawn position
-            Vector3 spawnPos = player.position;
+            Vector3 spawnPos = player.transform.position;
             spawnPos += new Vector3(Mathf.Cos(angle) * distance, 0, Mathf.Sin(angle) * distance);
 
             // Spawn enemy
