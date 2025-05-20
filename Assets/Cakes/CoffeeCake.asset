@@ -13,3 +13,4 @@ MonoBehaviour:
   m_Name: CoffeeCake
   m_EditorClassIdentifier: 
   sprite: {fileID: 21300000, guid: 01413b0d3d86e2e4680a391e00e4ab48, type: 3}
+  description: 'Coffee Cake: Bullets move 2x as fast.'

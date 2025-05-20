@@ -13,3 +13,4 @@ MonoBehaviour:
   m_Name: Null
   m_EditorClassIdentifier: 
   sprite: {fileID: 21300000, guid: d0a855cd2aa2f534194e2a49be780875, type: 3}
+  description: 'Null: [ERROR]x Damage Mult.'

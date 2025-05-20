@@ -13,3 +13,4 @@ MonoBehaviour:
   m_Name: MoonCake
   m_EditorClassIdentifier: 
   sprite: {fileID: 21300000, guid: dc30b1c9feb2a41418d0493309e9cc87, type: 3}
+  description: 'Moon Cake: Makes Enemies 0.5x the speed.'
