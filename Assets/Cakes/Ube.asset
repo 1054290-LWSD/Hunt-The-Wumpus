@@ -13,3 +13,4 @@ MonoBehaviour:
   m_Name: Ube
   m_EditorClassIdentifier: 
   sprite: {fileID: 21300000, guid: 60b616c9c05c28447ba3d2ecce86325a, type: 3}
+  description: null

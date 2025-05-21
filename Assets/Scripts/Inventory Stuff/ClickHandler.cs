@@ -15,12 +15,14 @@ public class ClickHandler : MonoBehaviour, IPointerClickHandler
     [Header("Other Scripts")]
     public InventorySlot otherSlot;
 
-    [Header("Tooltip UI")]                           // ← NEW
+    [Header("Tooltip UI")]
     public GameObject tooltipObject;
     public Text tooltipText;
+    [Header("Inventory from \"CakeSlots\"")]
+    public Inventory inventory;
 
-    public float tooltipTimer = 0f;
-    private Vector2 offset = new Vector2(160f, 15f);
+    
+    private Vector2 offset = new Vector2(175, 30f);
 
     RectTransform rt;
 
@@ -35,14 +37,13 @@ public class ClickHandler : MonoBehaviour, IPointerClickHandler
 
     void Update()
     {
-        tooltipTimer -= Time.deltaTime;
-        if (tooltipObject != null && tooltipTimer >= 0f)
+        if (tooltipObject != null && inventory.tooltipTimer <= 0f)
+        {
+            if (tooltipObject.activeSelf)
             {
-                if (tooltipObject.activeSelf)
-                {
-                    tooltipObject.SetActive(false);
-                }
+                tooltipObject.SetActive(false);
             }
+        }
         if (RectTransformUtility.RectangleContainsScreenPoint(rt, Input.mousePosition))
         {
             Vector2 localPoint;
@@ -58,16 +59,22 @@ public class ClickHandler : MonoBehaviour, IPointerClickHandler
 
             if (tooltipObject != null && tooltipText != null && target.myItem != null)
             {
-                tooltipTimer = 2f;
+                inventory.tooltipTimer = 0.1f;
                 tooltipObject.SetActive(true);
                 tooltipText.text = target.myItem.myItem.description;
-    
+
+                Canvas canvas = tooltipObject.GetComponentInParent<Canvas>();
+                CanvasScaler scaler = canvas.GetComponent<CanvasScaler>();
+
+                // Scale the offset based on current screen resolution
+                float scaleFactor = canvas.scaleFactor; // Automatically accounts for resolution
+                Vector2 scaledOffset = offset * scaleFactor;
                 // Convert mouse position to local point in the canvas
                 RectTransform canvasRect = tooltipObject.transform.root.GetComponent<RectTransform>();
                 Vector2 localPointDeep;
                 RectTransformUtility.ScreenPointToLocalPointInRectangle(
                     canvasRect,
-                    Input.mousePosition + (Vector3)offset,
+                    Input.mousePosition + (Vector3)scaledOffset,
                     null,
                     out localPointDeep
                 );

@@ -625,7 +625,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0cd44c1031e13a943bb63640046fad76, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_UiScaleMode: 0
+  m_UiScaleMode: 1
   m_ReferencePixelsPerUnit: 100
   m_ScaleFactor: 1
   m_ReferenceResolution: {x: 800, y: 600}
@@ -2055,6 +2055,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2579507169a5f524199f2ece608ee660, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  tooltipTimer: 0
   inventorySlots:
   - {fileID: 1448845790}
   - {fileID: 1270512930}
@@ -2380,7 +2381,7 @@ MonoBehaviour:
   otherSlot: {fileID: 1731823984}
   tooltipObject: {fileID: 355812304}
   tooltipText: {fileID: 705397426}
-  tooltipTimer: 0
+  inventory: {fileID: 1175240032}
 --- !u!225 &1274287324
 CanvasGroup:
   m_ObjectHideFlags: 0
@@ -2569,7 +2570,7 @@ MonoBehaviour:
   otherSlot: {fileID: 1270512930}
   tooltipObject: {fileID: 355812304}
   tooltipText: {fileID: 705397426}
-  tooltipTimer: 0
+  inventory: {fileID: 1175240032}
 --- !u!1001 &1587888779
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -2734,7 +2735,7 @@ MonoBehaviour:
   otherSlot: {fileID: 1143860551}
   tooltipObject: {fileID: 355812304}
   tooltipText: {fileID: 705397426}
-  tooltipTimer: 0
+  inventory: {fileID: 1175240032}
 --- !u!225 &1587888786
 CanvasGroup:
   m_ObjectHideFlags: 0
@@ -3371,7 +3372,7 @@ MonoBehaviour:
   otherSlot: {fileID: 1932306008}
   tooltipObject: {fileID: 355812304}
   tooltipText: {fileID: 705397426}
-  tooltipTimer: 0
+  inventory: {fileID: 1175240032}
 --- !u!225 &2096015468
 CanvasGroup:
   m_ObjectHideFlags: 0

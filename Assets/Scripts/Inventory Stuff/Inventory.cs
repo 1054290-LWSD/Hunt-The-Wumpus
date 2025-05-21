@@ -8,7 +8,7 @@ public class Inventory : MonoBehaviour
 {
     public static Inventory Singleton;
     public static InventoryItem carriedItem;
-
+    public float tooltipTimer = 0f;
     [SerializeField] InventorySlot[] inventorySlots;
 
     [SerializeField] Transform draggablesTransform;
@@ -19,6 +19,7 @@ public class Inventory : MonoBehaviour
 
     [Header("Debug")]
     [SerializeField] Button giveItemButton;
+    
 
     public void Awake()
     {
@@ -27,6 +28,7 @@ public class Inventory : MonoBehaviour
     }
     void Update()
     {
+        tooltipTimer -= Time.deltaTime;
         if (carriedItem == null) return;
 
         carriedItem.transform.position = Input.mousePosition;

@@ -13,3 +13,4 @@ MonoBehaviour:
   m_Name: RedVelvet
   m_EditorClassIdentifier: 
   sprite: {fileID: 21300000, guid: b846ed6a5f5253b4298b5f62d72745b2, type: 3}
+  description: null
