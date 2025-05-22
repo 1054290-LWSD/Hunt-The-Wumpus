@@ -27,13 +27,6 @@ public class Movement : MonoBehaviour
     private float ogCoyoteTime = 0.5f;
     private float coyoteTime = 0f;
 
-    //The speed at which you dash (50f is pretty good)
-    private float dashSpeed = 50f;
-    private int NumDashes = 0;
-    private int MaxDashes = 1;
-    private bool isDashing = true;
-    private bool isGravity = true;
-
 
     private float curSpeedX;
     private float curSpeedY;
@@ -86,7 +79,6 @@ public class Movement : MonoBehaviour
         else
         {
             coyoteTime = ogCoyoteTime;
-            NumDashes = MaxDashes;
         }
         
         //currents Speed of x and y for the camera rotation
@@ -127,7 +119,7 @@ public class Movement : MonoBehaviour
         float vertical = Input.GetAxisRaw("Vertical");
 
         //Applies gravity if mid air, and sets vertical velocity to jump velocity if grounded and jumps
-        if (!IsGrounded() && isGravity)
+        if (!IsGrounded())
         {
             //Makes gravity go faster if you are falling instead of rising, makes jump feel a lot better
             if (velocity.y < 1) velocity.y -= gravity * deltaTime * 1.5f;
@@ -187,15 +179,6 @@ public class Movement : MonoBehaviour
         zMove *= airDrag;
         //applies vertical airdrag if velocity is going up
         if (velocity.y > 0) velocity.y *= airDrag;
-
-        //Dash system, if presses left click, will dash them where they are looking, adds the velocity to current
-        if (pressedFire && canMove)
-        {
-            pressedFire = false;
-            xMove += xLook * dashSpeed;
-            zMove += zLook * dashSpeed;
-            velocity.y += yLook * dashSpeed;
-        } 
         //If velocity is to low it will zero out, prevents tiny permanent micro movements.
         if (Math.Abs(velocity.x) < 0.05) velocity.x = 0;
         if (Math.Abs(velocity.z) < 0.05) velocity.z = 0;
@@ -209,8 +192,4 @@ public class Movement : MonoBehaviour
     {
         return Physics.CheckSphere(groundCheck.position, 0.45f, groundLayer);
     }
-    // private IEnumerator Dash()
-    // {
-        
-    // }
 }   
