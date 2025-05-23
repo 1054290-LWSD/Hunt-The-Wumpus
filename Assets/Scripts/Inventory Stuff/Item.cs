@@ -7,4 +7,6 @@ public class Item : ScriptableObject
 {
     public Sprite sprite;
     public string description = "Test";
+
+    public List<CakeEventEnums> triggerEvents = new List<CakeEventEnums>();
 }

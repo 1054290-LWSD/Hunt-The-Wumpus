@@ -8,8 +8,8 @@ public class EventHandler : MonoBehaviour
     public Transform player;
     public Text enemyCountText;
 
-    public int numberOfEnemies = 10;
-    public float spawnRadius = 150f;
+    private int numberOfEnemies = 5;
+    private float spawnRadius = 150f;
 
     public List<GameObject> spawnedEnemies = new List<GameObject>();
 

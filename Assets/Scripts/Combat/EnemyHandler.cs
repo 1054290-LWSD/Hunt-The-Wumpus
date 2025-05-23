@@ -10,7 +10,7 @@ public class EnemyHandler : MonoBehaviour
     private Transform player;
     private Camera mainCamera;
 
-    public float moveSpeed = 5f;
+    private float moveSpeed = 12f;
     public Text healthText;
 
     public void SetSpawner(EventHandler eHandler)

@@ -20,8 +20,6 @@ public class Movement : MonoBehaviour
     private float lookSpeed = 1.5f;
     //The max you can look up or down in degrees, 90 is straight up and down.
     private float lookYLimit = 90f;
-
-    private bool pressedFire = false;
     
     public bool ground = false;
     private float ogCoyoteTime = 0.5f;
@@ -63,10 +61,7 @@ public class Movement : MonoBehaviour
     }
 
     void Update()
-    {
-        //Changes variable so it can be used in fixed updates
-        if (Input.GetButtonDown("Fire1") && canMove) pressedFire = true;
-        
+    {        
         //Assigns delta time and checks FPS
         deltaTime = Time.deltaTime;
         fps = 1 / deltaTime;

@@ -2,8 +2,8 @@ using UnityEngine;
 
 public class BulletHandler : MonoBehaviour
 {
-    public int damage = 25; // Set how much damage the bullet does
-    public int maxBounces = 3;
+    private int damage = 10; // Set how much damage the bullet does
+    private int maxBounces = 3;
     private int bounceCount = 0;
 
     void OnCollisionEnter(Collision collision)
@@ -19,12 +19,15 @@ public class BulletHandler : MonoBehaviour
         }
         else
         {
-            // If it wasn't an enemy, just bounce
-            bounceCount++;
-
-            if (bounceCount >= maxBounces)
+            // Only bounce if the object is NOT tagged as "Bullet"
+            if (!collision.gameObject.CompareTag("Bullet"))
             {
-                Destroy(gameObject);
+                bounceCount++;
+
+                if (bounceCount >= maxBounces)
+                {
+                    Destroy(gameObject);
+                }
             }
         }
     }

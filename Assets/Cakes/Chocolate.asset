@@ -14,3 +14,4 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   sprite: {fileID: 21300000, guid: 00361392292ef1a459618ce73ebff908, type: 3}
   description: 'Chocolate Cake: +20 Damage'
+  triggerEvents: 01000000

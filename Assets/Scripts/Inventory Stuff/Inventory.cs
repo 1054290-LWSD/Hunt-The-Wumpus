@@ -73,7 +73,6 @@ public class Inventory : MonoBehaviour
     Item PickRandomItem()
     {
         int random = 0;
-        bool x = false;
         List<Item> itemsHad = new List<Item>();
         foreach (InventorySlot i in inventorySlots)
         {
