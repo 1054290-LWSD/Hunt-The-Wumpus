@@ -8,6 +8,8 @@ public class ClickHandler : MonoBehaviour, IPointerClickHandler
 {
     public enum TrianglePart { TopLeft, BottomLeft }
     public TrianglePart trianglePart;
+    public bool isStore = false;
+    [SerializeField] Button buyButton;
 
     [Header("This Scripts")]
     public InventorySlot thisSlot;
@@ -20,9 +22,10 @@ public class ClickHandler : MonoBehaviour, IPointerClickHandler
     public Text tooltipText;
     [Header("Inventory from \"CakeSlots\"")]
     public Inventory inventory;
+    public Inventory otherInventory;
 
-    
-    private Vector2 offset = new Vector2(175, 30f);
+
+    private Vector2 offset = new Vector2(-128f, 29f);
 
     RectTransform rt;
 
@@ -33,15 +36,32 @@ public class ClickHandler : MonoBehaviour, IPointerClickHandler
         {
             tooltipObject.SetActive(false); // ensure tooltip is hidden at start
         }
+        if (isStore)
+        {
+            buyButton.onClick.AddListener(delegate { Buy(); });
+        }
     }
 
     void Update()
     {
-        if (tooltipObject != null && inventory.tooltipTimer <= 0f)
+        if (isStore)
         {
-            if (tooltipObject.activeSelf)
+            if (tooltipObject != null && otherInventory.tooltipTimer <= 0f)
             {
-                tooltipObject.SetActive(false);
+                if (tooltipObject.activeSelf)
+                {
+                    tooltipObject.SetActive(false);
+                }
+            }
+        }
+        else
+        {
+            if (tooltipObject != null && inventory.tooltipTimer <= 0f)
+            {
+                if (tooltipObject.activeSelf)
+                {
+                    tooltipObject.SetActive(false);
+                }
             }
         }
         if (RectTransformUtility.RectangleContainsScreenPoint(rt, Input.mousePosition))
@@ -59,7 +79,14 @@ public class ClickHandler : MonoBehaviour, IPointerClickHandler
 
             if (tooltipObject != null && tooltipText != null && target.myItem != null)
             {
-                inventory.tooltipTimer = 0.1f;
+                if (isStore)
+                {
+                    otherInventory.tooltipTimer = 0.1f;
+                }
+                else
+                {
+                    inventory.tooltipTimer = 0.1f;
+                }
                 tooltipObject.SetActive(true);
                 tooltipText.text = target.myItem.myItem.description;
 
@@ -87,37 +114,62 @@ public class ClickHandler : MonoBehaviour, IPointerClickHandler
 
     public void OnPointerClick(PointerEventData eventData)
     {
-        Vector2 localPoint;
-        RectTransformUtility.ScreenPointToLocalPointInRectangle(rt, eventData.position, eventData.pressEventCamera, out localPoint);
-
-        Rect rect = rt.rect;
-        localPoint += new Vector2(rect.width / 2, rect.height / 2);
-
-        bool isTopLeft = localPoint.x + localPoint.y < rect.height;
-
-        if ((trianglePart == TrianglePart.TopLeft && isTopLeft) || (trianglePart == TrianglePart.BottomLeft && !isTopLeft))
+        if (!isStore)
         {
-            Debug.Log("This");
-            if (thisSlot.myItem != null)
+            Vector2 localPoint;
+            RectTransformUtility.ScreenPointToLocalPointInRectangle(rt, eventData.position, eventData.pressEventCamera, out localPoint);
+
+            Rect rect = rt.rect;
+            localPoint += new Vector2(rect.width / 2, rect.height / 2);
+
+            bool isTopLeft = localPoint.x + localPoint.y < rect.height;
+
+            if ((trianglePart == TrianglePart.TopLeft && isTopLeft) || (trianglePart == TrianglePart.BottomLeft && !isTopLeft))
             {
-                thisSlot.myItem.Click(eventData);
+                //Debug.Log("This");
+                if (thisSlot.myItem != null)
+                {
+                    thisSlot.myItem.Click(eventData);
+                }
+                else
+                {
+                    thisSlot.Click(eventData);
+                }
             }
             else
             {
-                thisSlot.Click(eventData);
+                //Debug.Log("Other");
+                if (otherSlot.myItem != null)
+                {
+                    otherSlot.myItem.Click(eventData);
+                }
+                else
+                {
+                    otherSlot.Click(eventData);
+                }
+            }
+        }
+    }
+    public void Buy()
+    {
+        if (thisSlot.myItem != null)
+        {
+            if (!otherInventory.CheckIfFull())
+            {
+                Item thisItem = thisSlot.myItem.myItem;
+                Destroy(thisSlot.myItem.gameObject);
+                thisSlot.SetItem(null);
+                thisSlot.UpdateText();
+                otherInventory.SpawnInventoryItem(thisItem);
+            }
+            else
+            {
+                Debug.Log("Full");
             }
         }
         else
         {
-            Debug.Log("Other");
-            if (otherSlot.myItem != null)
-            {
-                otherSlot.myItem.Click(eventData);
-            }
-            else
-            {
-                otherSlot.Click(eventData);
-            }
+            Debug.Log("Nothing");
         }
     }
 }

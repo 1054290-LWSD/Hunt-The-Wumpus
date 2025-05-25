@@ -15,4 +15,5 @@ MonoBehaviour:
   sprite: {fileID: 21300000, guid: 9483f5430ef4d594d93b79d67bdf0f49, type: 3}
   description: 'The Cake is a Lie: Teleports a random Enemy to where an Enemy was
     killed.'
+  price: 7
   triggerEvents: 05000000

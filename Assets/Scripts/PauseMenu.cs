@@ -5,6 +5,7 @@ using UnityEngine;
 public class PauseMenu : MonoBehaviour
 {
     public Movement moveScript;
+    public GunHandler gunScript;
     public GameObject PausePanel;
     public bool isPaused = false;
     // Update is called once per frame
@@ -19,13 +20,11 @@ public class PauseMenu : MonoBehaviour
             }
             
         }
-        if(Input.GetKeyDown(KeyCode.Escape)) {
-            
-        }
     }
     public void Pause()
     {
         moveScript.canMove = false;
+        gunScript.isPaused = true;
         Cursor.lockState = CursorLockMode.None;
         Cursor.visible = true;
         isPaused = true;
@@ -35,6 +34,7 @@ public class PauseMenu : MonoBehaviour
     }
     public void Continue()
     {
+        gunScript.isPaused = false;
         moveScript.canMove = true;
         Cursor.lockState = CursorLockMode.Locked;
         Cursor.visible = false;

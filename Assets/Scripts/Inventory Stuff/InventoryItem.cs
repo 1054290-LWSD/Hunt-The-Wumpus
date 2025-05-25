@@ -24,17 +24,14 @@ public class InventoryItem : MonoBehaviour//, IPointerClickHandler
             if (Inventory.carriedItem == null)
             {
                 Inventory.Singleton.setCarriedItem(this);
-                activeSlot.SetItem(null, true);
+                activeSlot.SetItem(null);
             }
             else
             {
                 InventoryItem temp = activeSlot.myItem;
-                activeSlot.SetItem(Inventory.carriedItem, true);
+                activeSlot.SetItem(Inventory.carriedItem);
                 Inventory.Singleton.setCarriedItem(temp);
             }
-            //if (temp != null)
-            //    activeSlot.SetItem(temp, false);
-            //else Debug.Log("No Item In Cursor");
         }
     }
     public void Initialize(Item item, InventorySlot parent)

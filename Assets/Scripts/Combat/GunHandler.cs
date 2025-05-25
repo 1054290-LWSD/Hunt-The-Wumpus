@@ -7,11 +7,12 @@ public class GunHandler : MonoBehaviour
     public GameObject projectilePrefab;  // Assign in Inspector
     private float projectileSpeed = 50f;  // Adjustable speed
     private float coolDownTimer = 0;
+    public bool isPaused = false;
 
     void Update()
     {
         coolDownTimer -= Time.deltaTime;
-        if (Input.GetMouseButton(0) && coolDownTimer <= 0) // 0 = Left Click
+        if (Input.GetMouseButton(0) && coolDownTimer <= 0 && !isPaused) // 0 = Left Click
         {
             Shoot();
             coolDownTimer = 0.4f;

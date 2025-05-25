@@ -9,6 +9,8 @@ public class Inventory : MonoBehaviour
     public static Inventory Singleton;
     public static InventoryItem carriedItem;
     public float tooltipTimer = 0f;
+    public bool isStore = false;
+    public Inventory otherInventory;
     [SerializeField] InventorySlot[] inventorySlots;
 
     [SerializeField] Transform draggablesTransform;
@@ -19,12 +21,23 @@ public class Inventory : MonoBehaviour
 
     [Header("Debug")]
     [SerializeField] Button giveItemButton;
-    
+    [SerializeField] Button rerollButton;
+
 
     public void Awake()
     {
+        if (isStore)
+        {
+            items = otherInventory.items;
+        }
         Singleton = this;
         giveItemButton.onClick.AddListener(delegate { SpawnInventoryItem(); });
+        if (isStore)
+        {
+            rerollButton.onClick.AddListener(delegate { Reroll(); });
+            Reroll();
+        }
+
     }
     void Update()
     {
@@ -36,10 +49,6 @@ public class Inventory : MonoBehaviour
 
     public void setCarriedItem(InventoryItem item)
     {
-        // if (carriedItem != null)
-        // {
-        //     item.activeSlot.SetItem(carriedItem, true);
-        // }
 
         carriedItem = item;
         if (item != null)
@@ -50,14 +59,15 @@ public class Inventory : MonoBehaviour
     }
     public void SpawnInventoryItem(Item item = null)
     {
-        bool y = false;
-        foreach (InventorySlot invSlot in inventorySlots) {
-            if (invSlot.myItem == null) y = true;
+        if (CheckIfFull())
+        {
+            return;
         }
-        if (!y) return;
         Item _item = item;
-        if(_item == null)
-        { _item = PickRandomItem(); }
+        if (_item == null)
+        {
+            _item = PickRandomItem();
+        }
 
         for (int i = 0; i < inventorySlots.Length; i++)
         {
@@ -65,6 +75,10 @@ public class Inventory : MonoBehaviour
             if (inventorySlots[i].myItem == null)
             {
                 Instantiate(itemPrefab, inventorySlots[i].transform).Initialize(_item, inventorySlots[i]);
+                if (isStore)
+                {
+                    inventorySlots[i].UpdateText();
+                }
                 break;
             }
         }
@@ -81,16 +95,53 @@ public class Inventory : MonoBehaviour
                 itemsHad.Add(i.myItem.myItem);
             }
         }
+        if (isStore)
+        {
+            foreach (InventorySlot i in otherInventory.inventorySlots)
+            {
+                if (i.myItem != null)
+                {
+                    itemsHad.Add(i.myItem.myItem);
+                }
+            }
+
+        }
         HashSet<Item> itemsHadSet = new HashSet<Item>(itemsHad);
         List<Item> possibleItems = items.Where(item => !itemsHadSet.Contains(item)).ToList();
         if (possibleItems.Count == 0)
         {
             return items[0];
         }
-        
+
         random = Random.Range(0, possibleItems.Count - 1);
-        Debug.Log(string.Join(", ", possibleItems));
-        Debug.Log("Random Num: " + random + "  Item: " + items[random]);
+        // Debug.Log(string.Join(", ", possibleItems));
+        // Debug.Log("Random Num: " + random + "  Item: " + items[random]);
         return possibleItems[random];
+    }
+    public void Reroll()
+    {
+        foreach (InventorySlot i in inventorySlots)
+        {
+            if (i.myItem != null)
+            {
+                Destroy(i.myItem.gameObject);
+            }
+            i.SetItem(null);
+        }
+        for (int i = 0; i < inventorySlots.Length; i++)
+        {
+            SpawnInventoryItem(PickRandomItem());
+        }
+    }
+    public bool CheckIfFull()
+    {
+        foreach (InventorySlot invSlot in inventorySlots)
+        {
+            if (invSlot.myItem == null)
+            {
+                return false;
+            }
+        }
+        return true;
     }
 }
