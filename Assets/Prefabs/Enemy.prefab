@@ -224,7 +224,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 967385c660c81b44988852d6818d326c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  moveSpeed: 5
+  moveSpeed: 10
   healthText: {fileID: 487300635822107820}
 --- !u!54 &5275195621272312033
 Rigidbody:

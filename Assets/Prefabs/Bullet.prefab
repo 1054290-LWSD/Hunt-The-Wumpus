@@ -146,5 +146,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5a983d93d979fc54d90be5758bece1fb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  damage: 25
-  maxBounces: 3
+  damage: 10

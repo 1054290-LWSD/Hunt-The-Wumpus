@@ -10,12 +10,23 @@ public class EventHandler : MonoBehaviour
 
     private int numberOfEnemies = 5;
     private float spawnRadius = 150f;
-
+    public CakeHandler cakeHandler;
     public List<GameObject> spawnedEnemies = new List<GameObject>();
 
     void Start()
     {
         SpawnEnemies();
+    }
+    void Update()
+    {
+        if (Input.GetKeyDown(KeyCode.R))
+        {
+            foreach (GameObject Enemy in spawnedEnemies)
+            {
+                Enemy.GetComponent<EnemyHandler>().DealDamage(1000);//2147483647
+            }
+            SpawnEnemies();
+        }
     }
 
     public void SpawnEnemies()
@@ -36,6 +47,7 @@ public class EventHandler : MonoBehaviour
             {
                 handler.SetSpawner(this);
             }
+            cakeHandler.runCakes(enemy, CakeEventEnums.onEnemySpawn);
         }
 
         UpdateEnemyCount();

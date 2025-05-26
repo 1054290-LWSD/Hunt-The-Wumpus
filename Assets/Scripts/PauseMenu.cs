@@ -7,18 +7,46 @@ public class PauseMenu : MonoBehaviour
     public Movement moveScript;
     public GunHandler gunScript;
     public GameObject PausePanel;
+    public GameObject CakePanel;
     public bool isPaused = false;
+    public bool pausePanelOn = false;
     // Update is called once per frame
     void Update()
     {
-        if(Input.GetKeyDown(KeyCode.Escape)) {
-            if (isPaused) {
-                Continue();    
-            } else {
-                Pause();
-                
+        if (Input.GetKeyDown(KeyCode.Escape))
+        {
+            if (isPaused)
+            {
+                if (pausePanelOn)
+                {
+                    Continue();
+                    ClosePauseMenu();
+                }
+                else
+                {
+                    CloseCakeMenu();
+                    OpenPauseMenu();
+                }
             }
-            
+            else
+            {
+                Pause();
+                OpenPauseMenu();
+
+            }
+        }
+        if (Input.GetKeyDown(KeyCode.E))
+        {
+            if (isPaused && !pausePanelOn)
+            {
+                Continue();
+                CloseCakeMenu();
+            }
+            else if (!isPaused)
+            {
+                Pause();
+                OpenCakeMenu();
+            }
         }
     }
     public void Pause()
@@ -28,9 +56,8 @@ public class PauseMenu : MonoBehaviour
         Cursor.lockState = CursorLockMode.None;
         Cursor.visible = true;
         isPaused = true;
-        PausePanel.SetActive(true);
         Time.timeScale = 0;
-        Debug.Log("Pause");
+        //Debug.Log("Pause");
     }
     public void Continue()
     {
@@ -39,9 +66,26 @@ public class PauseMenu : MonoBehaviour
         Cursor.lockState = CursorLockMode.Locked;
         Cursor.visible = false;
         isPaused = false;
-        PausePanel.SetActive(false);
         Time.timeScale = 1;
-        Debug.Log("Unpause");
+        //Debug.Log("Unpause");
+    }
+    public void OpenPauseMenu()
+    {
+        PausePanel.SetActive(true);
+        pausePanelOn = true;
+    }
+    public void ClosePauseMenu()
+    {
+        PausePanel.SetActive(false);
+        pausePanelOn = false;
+    }
+    public void OpenCakeMenu()
+    {
+        CakePanel.SetActive(true);
+    }
+    public void CloseCakeMenu()
+    {
+        CakePanel.SetActive(false);
     }
 }
     

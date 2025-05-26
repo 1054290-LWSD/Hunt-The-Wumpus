@@ -1,8 +1,9 @@
 using UnityEngine;
+using System;
 
 public class BulletHandler : MonoBehaviour
 {
-    private int damage = 10; // Set how much damage the bullet does
+    public int damage = 10; // Set how much damage the bullet does
     private int maxBounces = 3;
     private int bounceCount = 0;
 
@@ -15,6 +16,7 @@ public class BulletHandler : MonoBehaviour
         {
             // If it has EnemyHandler, deal damage
             enemy.DealDamage(damage);
+            System.Threading.Thread.Sleep(100);
             Destroy(gameObject); // Bullet disappears after hitting enemy
         }
         else

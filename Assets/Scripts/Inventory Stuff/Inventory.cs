@@ -144,4 +144,8 @@ public class Inventory : MonoBehaviour
         }
         return true;
     }
+    public InventorySlot[] GetInventorySlots()
+    {
+        return inventorySlots;
+    }
 }

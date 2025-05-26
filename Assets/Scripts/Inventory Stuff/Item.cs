@@ -6,6 +6,7 @@ using UnityEngine;
 public class Item : ScriptableObject
 {
     public Sprite sprite;
+    public string methodName = "name";
     public string description = "Test";
     public int price = -1;
 

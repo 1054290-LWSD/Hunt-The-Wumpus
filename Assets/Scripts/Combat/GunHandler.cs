@@ -8,6 +8,7 @@ public class GunHandler : MonoBehaviour
     private float projectileSpeed = 50f;  // Adjustable speed
     private float coolDownTimer = 0;
     public bool isPaused = false;
+    public CakeHandler cakeHandler;
 
     void Update()
     {
@@ -32,5 +33,6 @@ public class GunHandler : MonoBehaviour
         {
             rb.velocity = transform.forward * projectileSpeed;
         }
+        cakeHandler.runCakes(projectile, CakeEventEnums.onBulletSpawn);
     }
 }
