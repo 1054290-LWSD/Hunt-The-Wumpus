@@ -5249,7 +5249,7 @@ MonoBehaviour:
   - {fileID: 266612952}
   - {fileID: 1286549082}
   - {fileID: 1115148927}
-  draggablesTransform: {fileID: 0}
+  draggablesTransform: {fileID: 1813574629}
   itemPrefab: {fileID: 7772234165507444946, guid: 6908dae39874bac4c8eeaae7e636752d, type: 3}
   items:
   - {fileID: 11400000, guid: 08fbc347d47fc574aa1aa29571fbc063, type: 2}
