@@ -13,6 +13,8 @@ public class EventHandler : MonoBehaviour
     public CakeHandler cakeHandler;
     public List<GameObject> spawnedEnemies = new List<GameObject>();
 
+    
+
     void Start()
     {
         SpawnEnemies();

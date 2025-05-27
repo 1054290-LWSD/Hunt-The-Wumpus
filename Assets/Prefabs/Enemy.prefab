@@ -226,6 +226,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   moveSpeed: 10
   healthText: {fileID: 487300635822107820}
+  attackPrefab: {fileID: 7054027467779873853, guid: 4644d43ab29c7634d9712c859b59e26a, type: 3}
 --- !u!54 &5275195621272312033
 Rigidbody:
   m_ObjectHideFlags: 0

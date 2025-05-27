@@ -9,9 +9,13 @@ public class EnemyHandler : MonoBehaviour
     private EventHandler eventHandler;
     private Transform player;
     private Camera mainCamera;
-
     public float moveSpeed = 10f;
+    private float damage = 10f;
     public Text healthText;
+    public GameObject attackPrefab;
+    private float attackTimer = 0f;
+    private float attackInterval = 2.5f;
+    private float initialOffset;
 
     public void SetSpawner(EventHandler eHandler)
     {
@@ -31,6 +35,8 @@ public class EnemyHandler : MonoBehaviour
                 healthText = textTransform.GetComponent<Text>();
             }
         }
+        initialOffset = Random.Range(0f, 5f);
+        attackTimer = -initialOffset;
 
         UpdateHealthText();
     }
@@ -61,7 +67,7 @@ public class EnemyHandler : MonoBehaviour
             //sets enemy position to be at correct Y level if bug occurs
             if (transform.position.y < -100)
             {
-                transform.position = new Vector3(transform.position.x,10,transform.position.z);
+                transform.position = new Vector3(transform.position.x, 10, transform.position.z);
             }
             float distance = direction.magnitude;
             float stopDistance = 2f;
@@ -76,9 +82,24 @@ public class EnemyHandler : MonoBehaviour
             {
                 transform.position += direction.normalized * moveSpeed * Time.deltaTime;
             }
+            // Timed Attack
+            attackTimer += Time.deltaTime;
+            if (attackTimer >= attackInterval)
+            {
+                attackTimer -= attackInterval;
+                TriggerAttack();
+            }
         }
     }
-
+    void TriggerAttack()
+    {
+        if (attackPrefab != null)
+        {
+            GameObject attack = Instantiate(attackPrefab, transform.position, Quaternion.identity);
+            attack.GetComponent<EnemyAttack>().SetDamage(damage);
+            Destroy(attack, 0.25f); // Auto-destroy after 0.1s
+        }
+    }
     public void DealDamage(int damage)
     {
         health -= damage;

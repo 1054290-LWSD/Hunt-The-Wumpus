@@ -29,6 +29,8 @@ public class Inventory : MonoBehaviour
         if (isStore)
         {
             items = otherInventory.items;
+            Cursor.lockState = CursorLockMode.None;
+            Cursor.visible = true;
         }
         Singleton = this;
         giveItemButton.onClick.AddListener(delegate { SpawnInventoryItem(); });
@@ -55,6 +57,8 @@ public class Inventory : MonoBehaviour
         {
             carriedItem.canvasGroup.blocksRaycasts = false;
             item.transform.SetParent(draggablesTransform);
+            Debug.Log("Worked?");
+            item.transform.SetParent(draggablesTransform, worldPositionStays: true);
         }
     }
     public void SpawnInventoryItem(Item item = null)

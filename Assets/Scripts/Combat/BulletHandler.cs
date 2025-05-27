@@ -16,8 +16,7 @@ public class BulletHandler : MonoBehaviour
         {
             // If it has EnemyHandler, deal damage
             enemy.DealDamage(damage);
-            System.Threading.Thread.Sleep(100);
-            Destroy(gameObject); // Bullet disappears after hitting enemy
+            Destroy(gameObject, 0.1f); // Bullet disappears after hitting enemy
         }
         else
         {

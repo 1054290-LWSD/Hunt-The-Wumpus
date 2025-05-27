@@ -1,15 +1,18 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 using System;
 
 [RequireComponent(typeof(CharacterController))]
 public class Movement : MonoBehaviour
 {
-    
+
     //Put camera in unity. should be at top of head.
     public Camera playerCamera;
     private Rigidbody rb;
+    private static float maxHealth = 100f;
+    private float health;
     private float speed = 12f;
 
     //Gravity rate at which player is pulled down (25f and 30f is pretty good)
@@ -20,7 +23,7 @@ public class Movement : MonoBehaviour
     private float lookSpeed = 1.5f;
     //The max you can look up or down in degrees, 90 is straight up and down.
     private float lookYLimit = 90f;
-    
+
     public bool ground = false;
     private float ogCoyoteTime = 0.5f;
     private float coyoteTime = 0f;
@@ -39,7 +42,7 @@ public class Movement : MonoBehaviour
     private float deltaTime = 0f;
 
     private float rotationX = 0;
-    
+
     //Might be useless, don't delete
     private CharacterController characterController;
 
@@ -48,20 +51,25 @@ public class Movement : MonoBehaviour
     [SerializeField] private LayerMask groundLayer;
 
     public bool canMove = true;
-    public PauseMenu isPaused;
+    //public PauseMenu isPaused;
+    public Text healthText;
     void Start()
     {
+        //Sets health to be correct (and health text)
+        health = maxHealth;
+        UpdateHealthText();
+        
         //rb = Rigidbody, look at Rigidbody decleration for more info.
         rb = GetComponent<Rigidbody>();
-        
-        //Don't worry about or change these, not useful, don't delete it.
-        characterController = GetComponent<CharacterController>();
+
+        //Cursor stuff
         Cursor.lockState = CursorLockMode.Locked;
         Cursor.visible = false;
+        
     }
 
     void Update()
-    {        
+    {
         //Assigns delta time and checks FPS
         deltaTime = Time.deltaTime;
         fps = 1 / deltaTime;
@@ -75,7 +83,7 @@ public class Movement : MonoBehaviour
         {
             coyoteTime = ogCoyoteTime;
         }
-        
+
         //currents Speed of x and y for the camera rotation
         curSpeedX = canMove ? speed * Input.GetAxis("Vertical") : 0;
         curSpeedY = canMove ? speed * Input.GetAxis("Horizontal") : 0;
@@ -93,13 +101,14 @@ public class Movement : MonoBehaviour
         //Gets cameras Dot Product [-1,1]
         yLook = -1 * (float)Math.Sin((Math.PI) * (playerCamera.transform.rotation.eulerAngles.x < 0 ? playerCamera.transform.rotation.eulerAngles.x + 180 : playerCamera.transform.rotation.eulerAngles.x) / 180);
         zLook = (float)Math.Cos((Math.PI) * transform.rotation.eulerAngles.y / 180);
-        xLook = (float)Math.Sin((Math.PI) * transform.rotation.eulerAngles.y / 180); 
+        xLook = (float)Math.Sin((Math.PI) * transform.rotation.eulerAngles.y / 180);
     }
     void FixedUpdate()
     {
         //Assigns the time since last frame, (delta time)
         float fixedDeltaTime = deltaTime;
-        if (fixedDeltaTime < Time.deltaTime) {
+        if (fixedDeltaTime < Time.deltaTime)
+        {
             fixedDeltaTime = Time.deltaTime;
         }
 
@@ -126,16 +135,16 @@ public class Movement : MonoBehaviour
             coyoteTime = 0f;
             velocity.y = jumpStrength;
         }
-        
-        
-        
+
+
+
         // Main Movement System:
         // If is less than movement speed let's you move up till running speed. If above, applies slight drag or extra drag if grounded
         float xMove = velocity.x;
         float zMove = velocity.z;
         //air Drag is also ground drag
         float airDrag = 0;
-        
+
         //If grounded, has more airDrag
         if (IsGrounded())
         {
@@ -160,7 +169,7 @@ public class Movement : MonoBehaviour
             if (xMove > speed) xMove = speed;
             if (-1 * xMove > speed) xMove = -1 * speed; //Negative version of above
         }
-        
+
         //Same as X valued ones but for Y
         if (Math.Abs(velocity.z) <= speed * 1.1)
         {
@@ -187,4 +196,23 @@ public class Movement : MonoBehaviour
     {
         return Physics.CheckSphere(groundCheck.position, 0.45f, groundLayer);
     }
-}   
+    public void TakeDamage(float damage)
+    {
+        health -= damage;
+        UpdateHealthText();
+    }
+    public void UpdateHealthText()
+    {
+        if (healthText != null)
+        {
+            if (health > 0)
+                healthText.text = "Health: " + health + " / " + maxHealth;
+            else
+            {
+                healthText.text = "";
+                Debug.Log("Dead");
+            }
+                
+        }
+    }
+} 
