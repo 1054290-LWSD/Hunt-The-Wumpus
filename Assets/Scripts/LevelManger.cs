@@ -9,27 +9,34 @@ public class LevelManger : MonoBehaviour
     public string level_2;
     public string level_3;
     public string level_4;
-    public void changesScene()
+    public void changesScene(string name = null)
     {
-        SceneManager.LoadScene(sceneName);
+        if (name == null || name == "")
+        {
+            SceneManager.LoadScene(sceneName);
+        }
+        else
+        {
+            SceneManager.LoadScene(name);
+        }
     }
     private void Update()
     {
         if (Input.GetKeyDown("1"))
         {
-            SceneManager.LoadScene(level_1);
+            changesScene(level_1);
         }
         if (Input.GetKeyDown("2"))
         {
-            SceneManager.LoadScene(level_2);
+            changesScene(level_2);
         }
         if (Input.GetKeyDown("3"))
         {
-            SceneManager.LoadScene(level_3);
+            changesScene(level_3);
         }
         if (Input.GetKeyDown("4"))
         {
-            SceneManager.LoadScene(level_4);
+            changesScene(level_4);
         }
     }
 }

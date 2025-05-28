@@ -31,15 +31,27 @@ public class Inventory : MonoBehaviour
             items = otherInventory.items;
             Cursor.lockState = CursorLockMode.None;
             Cursor.visible = true;
+            rerollButton.onClick.AddListener(delegate { Reroll(); });
         }
         Singleton = this;
         giveItemButton.onClick.AddListener(delegate { SpawnInventoryItem(); });
-        if (isStore)
-        {
-            rerollButton.onClick.AddListener(delegate { Reroll(); });
-            Reroll();
-        }
+        
 
+    }
+    void Start()
+    {
+        if (!isStore)
+        {
+            foreach (Item i in GameData.cakes)
+            {
+                SpawnInventoryItem(i);
+            }
+            if (otherInventory != null)
+            {
+                Debug.Log("Reroll");
+                otherInventory.Reroll();
+            }
+        }
     }
     void Update()
     {
@@ -118,8 +130,8 @@ public class Inventory : MonoBehaviour
         }
 
         random = Random.Range(0, possibleItems.Count - 1);
-        // Debug.Log(string.Join(", ", possibleItems));
-        // Debug.Log("Random Num: " + random + "  Item: " + items[random]);
+        Debug.Log(string.Join(", ", possibleItems));
+        Debug.Log("Random Num: " + random + "  Item: " + items[random]);
         return possibleItems[random];
     }
     public void Reroll()
@@ -134,7 +146,7 @@ public class Inventory : MonoBehaviour
         }
         for (int i = 0; i < inventorySlots.Length; i++)
         {
-            SpawnInventoryItem(PickRandomItem());
+            SpawnInventoryItem();
         }
     }
     public bool CheckIfFull()
@@ -151,5 +163,18 @@ public class Inventory : MonoBehaviour
     public InventorySlot[] GetInventorySlots()
     {
         return inventorySlots;
+    }
+    public void UpdateSaveData()
+    {
+        if (!isStore)
+        {
+            foreach (InventorySlot invenSlot in inventorySlots)
+            {
+                if (invenSlot.myItem != null)
+                {
+                    GameData.cakes.Add(invenSlot.myItem.myItem);
+                }
+            }
+        }
     }
 }

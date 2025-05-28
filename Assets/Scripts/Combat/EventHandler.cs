@@ -12,6 +12,7 @@ public class EventHandler : MonoBehaviour
     private float spawnRadius = 150f;
     public CakeHandler cakeHandler;
     public List<GameObject> spawnedEnemies = new List<GameObject>();
+    public LevelManger levelManger; 
 
     
 
@@ -69,9 +70,15 @@ public class EventHandler : MonoBehaviour
         if (enemyCountText != null)
         {
             if (spawnedEnemies.Count > 0)
+            {
                 enemyCountText.text = "Enemies Left: " + spawnedEnemies.Count;
+            }
             else
-                enemyCountText.text = "All Enemies Defeated!";
+            {
+                enemyCountText.text = "";
+                cakeHandler.inventory.UpdateSaveData();
+                levelManger.changesScene("Shop");
+            }
         }
     }
 }
