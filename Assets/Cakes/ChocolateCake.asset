@@ -10,9 +10,10 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 7d1ab3124cb748c40bc834615608d145, type: 3}
-  m_Name: SpongeCake
+  m_Name: ChocolateCake
   m_EditorClassIdentifier: 
-  sprite: {fileID: 21300000, guid: 1679c0568d309354a922083ae72e16f0, type: 3}
-  description: '"Sponge" Cake: Moves Enemies closer on hit.'
-  price: 4
-  triggerEvents: 04000000
+  sprite: {fileID: 21300000, guid: 00361392292ef1a459618ce73ebff908, type: 3}
+  methodName: ChocolateCake
+  description: 'Chocolate Cake: +20 Damage'
+  price: 2
+  triggerEvents: 01000000

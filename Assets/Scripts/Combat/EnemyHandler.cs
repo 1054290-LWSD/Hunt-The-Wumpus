@@ -100,9 +100,10 @@ public class EnemyHandler : MonoBehaviour
             Destroy(attack, 0.25f); // Auto-destroy after 0.1s
         }
     }
-    public void DealDamage(int damage)
+    public void DealDamage(float damage)
     {
-        health -= damage;
+        Debug.Log("Damage: " + damage);
+        health -= (int)damage;
         UpdateHealthText();
 
         if (health <= 0)

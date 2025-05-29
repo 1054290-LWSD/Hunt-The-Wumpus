@@ -10,7 +10,10 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 7d1ab3124cb748c40bc834615608d145, type: 3}
-  m_Name: Ube
+  m_Name: CherryCake
   m_EditorClassIdentifier: 
-  sprite: {fileID: 21300000, guid: 60b616c9c05c28447ba3d2ecce86325a, type: 3}
-  description: null
+  sprite: {fileID: 21300000, guid: 2b295656f6642ff4a9225738c78ee29a, type: 3}
+  methodName: CherryCake
+  description: 'Cherry Cake: +3 Radius of Bullet on hit.'
+  price: -1
+  triggerEvents: 02000000

@@ -10,6 +10,7 @@ public class Inventory : MonoBehaviour
     public static InventoryItem carriedItem;
     public float tooltipTimer = 0f;
     public bool isStore = false;
+    public bool shouldUnspawn = false;
     public Inventory otherInventory;
     [SerializeField] InventorySlot[] inventorySlots;
 
@@ -23,8 +24,7 @@ public class Inventory : MonoBehaviour
     [SerializeField] Button giveItemButton;
     [SerializeField] Button rerollButton;
 
-
-    public void Awake()
+    void Start()
     {
         if (isStore)
         {
@@ -35,11 +35,6 @@ public class Inventory : MonoBehaviour
         }
         Singleton = this;
         giveItemButton.onClick.AddListener(delegate { SpawnInventoryItem(); });
-        
-
-    }
-    void Start()
-    {
         if (!isStore)
         {
             foreach (Item i in GameData.cakes)
@@ -51,6 +46,10 @@ public class Inventory : MonoBehaviour
                 Debug.Log("Reroll");
                 otherInventory.Reroll();
             }
+        }
+        if (shouldUnspawn)
+        {
+            gameObject.SetActive(false);
         }
     }
     void Update()

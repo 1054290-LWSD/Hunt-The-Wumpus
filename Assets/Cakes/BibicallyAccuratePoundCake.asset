@@ -13,5 +13,7 @@ MonoBehaviour:
   m_Name: BibicallyAccuratePoundCake
   m_EditorClassIdentifier: 
   sprite: {fileID: 21300000, guid: 95472b02dfb86df439bd68638172a077, type: 3}
+  methodName: BAPoundCake
   description: null
+  price: -1
   triggerEvents: 

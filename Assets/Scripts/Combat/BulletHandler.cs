@@ -3,9 +3,12 @@ using System;
 
 public class BulletHandler : MonoBehaviour
 {
-    public int damage = 10; // Set how much damage the bullet does
+    public float damage = 10f; // Set how much damage the bullet does
+    public float damageMult = 1f; 
     private int maxBounces = 3;
     private int bounceCount = 0;
+    public bool hasHit = false;
+    public CakeHandler cakeHandler;
 
     void OnCollisionEnter(Collision collision)
     {
@@ -15,7 +18,9 @@ public class BulletHandler : MonoBehaviour
         if (enemy != null)
         {
             // If it has EnemyHandler, deal damage
-            enemy.DealDamage(damage);
+            enemy.DealDamage(damage * damageMult);
+            cakeHandler.runCakes(gameObject, CakeEventEnums.onBulletHit);
+            hasHit = true;
             Destroy(gameObject, 0.1f); // Bullet disappears after hitting enemy
         }
         else

@@ -10,9 +10,10 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 7d1ab3124cb748c40bc834615608d145, type: 3}
-  m_Name: Null
+  m_Name: TresLechesCake
   m_EditorClassIdentifier: 
-  sprite: {fileID: 21300000, guid: d0a855cd2aa2f534194e2a49be780875, type: 3}
-  description: 'Null: [ERROR]x Damage Mult.'
-  price: 5
+  sprite: {fileID: 21300000, guid: 12d013096c54bc4459c7e6b31b8c28e3, type: 3}
+  methodName: TresLechesCake
+  description: 'Tres Leches Cake: 3x Damage Mult.'
+  price: -1
   triggerEvents: 01000000

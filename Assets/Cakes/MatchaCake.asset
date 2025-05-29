@@ -10,10 +10,10 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 7d1ab3124cb748c40bc834615608d145, type: 3}
-  m_Name: Chocolate
+  m_Name: MatchaCake
   m_EditorClassIdentifier: 
-  sprite: {fileID: 21300000, guid: 00361392292ef1a459618ce73ebff908, type: 3}
-  methodName: ChocolateCake
-  description: 'Chocolate Cake: +20 Damage'
-  price: 2
-  triggerEvents: 01000000
+  sprite: {fileID: 21300000, guid: cbff74e917b9fc847937917d6b7e8122, type: 3}
+  methodName: MatchaCake
+  description: 'Matcha Cake: Bullets get 1.5x as big every 1 second.'
+  price: 7
+  triggerEvents: 

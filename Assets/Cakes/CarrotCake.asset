@@ -10,7 +10,10 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 7d1ab3124cb748c40bc834615608d145, type: 3}
-  m_Name: RedVelvet
+  m_Name: CarrotCake
   m_EditorClassIdentifier: 
-  sprite: {fileID: 21300000, guid: b846ed6a5f5253b4298b5f62d72745b2, type: 3}
-  description: null
+  sprite: {fileID: 21300000, guid: a9f74f617eebc784eb6dce4c7b75e659, type: 3}
+  methodName: CarrotCake
+  description: 'Carrot Cake: Bullets have Homing.'
+  price: -1
+  triggerEvents: 

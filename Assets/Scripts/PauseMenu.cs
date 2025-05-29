@@ -10,7 +10,6 @@ public class PauseMenu : MonoBehaviour
     public GameObject CakePanel;
     public bool isPaused = false;
     public bool pausePanelOn = false;
-    // Update is called once per frame
     void Update()
     {
         if (Input.GetKeyDown(KeyCode.Escape))
@@ -57,7 +56,6 @@ public class PauseMenu : MonoBehaviour
         Cursor.visible = true;
         isPaused = true;
         Time.timeScale = 0;
-        //Debug.Log("Pause");
     }
     public void Continue()
     {
@@ -67,7 +65,6 @@ public class PauseMenu : MonoBehaviour
         Cursor.visible = false;
         isPaused = false;
         Time.timeScale = 1;
-        //Debug.Log("Unpause");
     }
     public void OpenPauseMenu()
     {

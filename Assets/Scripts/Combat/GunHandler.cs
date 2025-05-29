@@ -33,6 +33,7 @@ public class GunHandler : MonoBehaviour
         {
             rb.velocity = transform.forward * projectileSpeed;
         }
+        projectile.GetComponent<BulletHandler>().cakeHandler = cakeHandler;
         cakeHandler.runCakes(projectile, CakeEventEnums.onBulletSpawn);
     }
 }

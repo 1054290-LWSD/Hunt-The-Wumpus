@@ -9,10 +9,11 @@ public class Movement : MonoBehaviour
 {
 
     //Put camera in unity. should be at top of head.
+    public CakeHandler cakeHandler;
     public Camera playerCamera;
     private Rigidbody rb;
     private static float maxHealth = 100f;
-    private float health;
+    public float health;
     private float speed = 12f;
 
     //Gravity rate at which player is pulled down (25f and 30f is pretty good)
@@ -65,7 +66,7 @@ public class Movement : MonoBehaviour
         //Cursor stuff
         Cursor.lockState = CursorLockMode.Locked;
         Cursor.visible = false;
-        
+        cakeHandler.runCakes(gameObject, CakeEventEnums.onPlayerSpawn);
     }
 
     void Update()
