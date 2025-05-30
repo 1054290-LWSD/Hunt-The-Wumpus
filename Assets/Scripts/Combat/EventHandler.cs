@@ -24,11 +24,12 @@ public class EventHandler : MonoBehaviour
     {
         if (Input.GetKeyDown(KeyCode.R))
         {
-            foreach (GameObject Enemy in spawnedEnemies)
+            while (spawnedEnemies.Count > 0)
             {
-                Enemy.GetComponent<EnemyHandler>().DealDamage(1000);//2147483647
+                spawnedEnemies[0].GetComponent<EnemyHandler>().DealDamage(1000);//2147483647
             }
-            SpawnEnemies();
+            
+            //SpawnEnemies();
         }
     }
 

@@ -12,7 +12,7 @@ public class Movement : MonoBehaviour
     public CakeHandler cakeHandler;
     public Camera playerCamera;
     private Rigidbody rb;
-    private static float maxHealth = 100f;
+    private float maxHealth = 100f;
     public float health;
     private float speed = 12f;
 
@@ -43,6 +43,7 @@ public class Movement : MonoBehaviour
     private float deltaTime = 0f;
 
     private float rotationX = 0;
+    private bool hasStarted = false;
 
     //Might be useless, don't delete
     private CharacterController characterController;
@@ -54,7 +55,7 @@ public class Movement : MonoBehaviour
     public bool canMove = true;
     //public PauseMenu isPaused;
     public Text healthText;
-    void Start()
+    void Awake()
     {
         //Sets health to be correct (and health text)
         health = maxHealth;
@@ -66,13 +67,18 @@ public class Movement : MonoBehaviour
         //Cursor stuff
         Cursor.lockState = CursorLockMode.Locked;
         Cursor.visible = false;
-        cakeHandler.runCakes(gameObject, CakeEventEnums.onPlayerSpawn);
+        
     }
 
     void Update()
     {
+        if (!hasStarted)
+        {
+            cakeHandler.runCakes(gameObject, CakeEventEnums.onPlayerSpawn);
+            hasStarted = true;
+        }
         //Assigns delta time and checks FPS
-        deltaTime = Time.deltaTime;
+            deltaTime = Time.deltaTime;
         fps = 1 / deltaTime;
 
         //Calculates Coyote Time (More info at variable decleration)
@@ -202,6 +208,11 @@ public class Movement : MonoBehaviour
         health -= damage;
         UpdateHealthText();
     }
+    public void SetHealth(float hp)
+    {
+        maxHealth = hp;
+        health = hp;
+    }
     public void UpdateHealthText()
     {
         if (healthText != null)
@@ -213,7 +224,7 @@ public class Movement : MonoBehaviour
                 healthText.text = "";
                 Debug.Log("Dead");
             }
-                
+
         }
     }
 } 

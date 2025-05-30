@@ -43,7 +43,7 @@ public class CakeHandler : MonoBehaviour
                     }
                     else
                     {
-                        //  Debug.Log(invenSlots.myItem.myItem + " " + cakeTrigger);
+                        Debug.Log(invenSlots.myItem.myItem + " is " + cakeTrigger + ". Should be: " + cakeEvent);
                     }
                 }
             }
@@ -51,18 +51,24 @@ public class CakeHandler : MonoBehaviour
     }
     public void AppleCake(GameObject gameObject)
     {
-        Movement playerMovement = gameObject.gameObject.GetComponent<Movement>();
-        playerMovement.health *= 2;
+        Movement playerMovement = gameObject.GetComponent<Movement>();
+        playerMovement.SetHealth(playerMovement.health * 2);
         playerMovement.UpdateHealthText();
+        
     }
-
+    public void BAPoundCake(GameObject gameObject)
+    {
+        EnemyHandler enemyHandler = gameObject.gameObject.GetComponent<EnemyHandler>();
+        Debug.Log("Before" + enemyHandler.moveSpeed);
+        enemyHandler.moveSpeed *= 0.25f;
+        Debug.Log("After" + enemyHandler.moveSpeed);
+    }
     public void BirthdayCake(GameObject gameObject)
     {
         Transform bulletTrans = gameObject.gameObject.GetComponent<Transform>();
         if (gameObject.GetComponent<BulletHandler>().hasHit == false)
         {
             bulletTrans.localScale *= 10f;
-            Debug.Log(bulletTrans.localScale.x);
         }
     }
     public void ButtCake(GameObject gameObject)
@@ -88,12 +94,22 @@ public class CakeHandler : MonoBehaviour
     public void MoonCake(GameObject gameObject)
     {
         EnemyHandler enemyHandler = gameObject.gameObject.GetComponent<EnemyHandler>();
+        Debug.Log("Before" + enemyHandler.moveSpeed);
         enemyHandler.moveSpeed *= 0.5f;
+        Debug.Log("After" + enemyHandler.moveSpeed);
     }
     public void NullCake(GameObject gameObject)
     {
         BulletHandler bulletHandler = gameObject.gameObject.GetComponent<BulletHandler>();
         bulletHandler.damageMult *= UnityEngine.Random.Range(1.0f, 3.0f); ;
+    }
+    public void PoundCake(GameObject gameObject)
+    {
+
+        EnemyHandler enemyHandler = gameObject.gameObject.GetComponent<EnemyHandler>();
+        Debug.Log("Before" + enemyHandler.moveSpeed);
+        enemyHandler.moveSpeed *= 0.75f;
+        Debug.Log("After" + enemyHandler.moveSpeed);
     }
     public void RedVelvet(GameObject gameObject)
     {

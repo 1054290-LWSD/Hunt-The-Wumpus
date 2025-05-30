@@ -37,13 +37,22 @@ public class Inventory : MonoBehaviour
         giveItemButton.onClick.AddListener(delegate { SpawnInventoryItem(); });
         if (!isStore)
         {
+            foreach (InventorySlot i in inventorySlots)
+            {
+                if (i.myItem != null)
+                {
+                    Destroy(i.myItem.gameObject);
+                }
+                i.SetItem(null);
+            }
             foreach (Item i in GameData.cakes)
             {
+                //Debug.Log("Spawn: " + i);
                 SpawnInventoryItem(i);
             }
             if (otherInventory != null)
             {
-                Debug.Log("Reroll");
+                //Debug.Log("Reroll");
                 otherInventory.Reroll();
             }
         }
@@ -68,7 +77,6 @@ public class Inventory : MonoBehaviour
         {
             carriedItem.canvasGroup.blocksRaycasts = false;
             item.transform.SetParent(draggablesTransform);
-            Debug.Log("Worked?");
             item.transform.SetParent(draggablesTransform, worldPositionStays: true);
         }
     }
@@ -129,8 +137,8 @@ public class Inventory : MonoBehaviour
         }
 
         random = Random.Range(0, possibleItems.Count - 1);
-        Debug.Log(string.Join(", ", possibleItems));
-        Debug.Log("Random Num: " + random + "  Item: " + items[random]);
+        // Debug.Log(string.Join(", ", possibleItems));
+        // Debug.Log("Random Num: " + random + "  Item: " + items[random]);
         return possibleItems[random];
     }
     public void Reroll()
@@ -167,6 +175,7 @@ public class Inventory : MonoBehaviour
     {
         if (!isStore)
         {
+            GameData.cakes.Clear();
             foreach (InventorySlot invenSlot in inventorySlots)
             {
                 if (invenSlot.myItem != null)
