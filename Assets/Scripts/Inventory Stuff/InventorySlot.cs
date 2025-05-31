@@ -11,14 +11,8 @@ public class InventorySlot : MonoBehaviour//, IPointerClickHandler
     {
         //if (myItem == null) Debug.Log("InventorySlot: Doesn't Have Item");
         //else Debug.Log("InventorySlot: Does Have Item?");
-        if (eventData.button == PointerEventData.InputButton.Left)
+        if (eventData.button == PointerEventData.InputButton.Left && Inventory.carriedItem != null)
         {
-            if (Inventory.carriedItem == null)
-            {
-                //Debug.Log("Return");
-                return;
-            }
-
             SetItem(Inventory.carriedItem);
             Inventory.Singleton.setCarriedItem(null);
         }

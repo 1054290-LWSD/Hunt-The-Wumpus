@@ -3,9 +3,7 @@ using UnityEngine.UI;
 
 public class EnemyHandler : MonoBehaviour
 {
-    private static int maxHealth = 50;
-    private int health = maxHealth;
-    
+    private double health;
     private EventHandler eventHandler;
     private Transform player;
     private Camera mainCamera;
@@ -102,24 +100,29 @@ public class EnemyHandler : MonoBehaviour
     }
     public void DealDamage(float damage)
     {
-        Debug.Log("Damage: " + damage);
+        eventHandler.UpdateMostDamage(damage);
         health -= (int)damage;
-        UpdateHealthText();
+
 
         if (health <= 0)
         {
             if (eventHandler != null)
                 eventHandler.RemoveEnemy(gameObject);
-
             Destroy(gameObject);
+            return;
         }
+        UpdateHealthText();
     }
 
     void UpdateHealthText()
     {
         if (healthText != null)
         {
-            healthText.text = health.ToString() + "/" + maxHealth;
+            healthText.text = (health - (health % 1)).ToString() + " HP";
         }
+    }
+    public void SetHealth(double hp)
+    {
+        health = hp;
     }
 }

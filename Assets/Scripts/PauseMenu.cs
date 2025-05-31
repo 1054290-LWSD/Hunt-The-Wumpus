@@ -8,11 +8,17 @@ public class PauseMenu : MonoBehaviour
     public GunHandler gunScript;
     public GameObject PausePanel;
     public GameObject CakePanel;
+    public GameObject grayOut;
     public bool isPaused = false;
     public bool pausePanelOn = false;
+    public bool canPause = true;
+    void Start()
+    {
+        Continue();
+    }
     void Update()
     {
-        if (Input.GetKeyDown(KeyCode.Escape))
+        if (Input.GetKeyDown(KeyCode.Escape) && canPause)
         {
             if (isPaused)
             {
@@ -34,7 +40,7 @@ public class PauseMenu : MonoBehaviour
 
             }
         }
-        if (Input.GetKeyDown(KeyCode.E))
+        if (Input.GetKeyDown(KeyCode.E) && canPause)
         {
             if (isPaused && !pausePanelOn)
             {
@@ -56,6 +62,7 @@ public class PauseMenu : MonoBehaviour
         Cursor.visible = true;
         isPaused = true;
         Time.timeScale = 0;
+        grayOut.SetActive(true);
     }
     public void Continue()
     {
@@ -65,6 +72,7 @@ public class PauseMenu : MonoBehaviour
         Cursor.visible = false;
         isPaused = false;
         Time.timeScale = 1;
+        grayOut.SetActive(false);
     }
     public void OpenPauseMenu()
     {

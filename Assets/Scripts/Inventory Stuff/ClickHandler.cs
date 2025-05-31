@@ -25,7 +25,7 @@ public class ClickHandler : MonoBehaviour, IPointerClickHandler
     public Inventory otherInventory;
 
 
-    private Vector2 offset = new Vector2(-128f, 29f);
+    private Vector2 offset = new Vector2(340, 32f);//-128, 29
 
     RectTransform rt;
 
@@ -154,17 +154,20 @@ public class ClickHandler : MonoBehaviour, IPointerClickHandler
     {
         if (thisSlot.myItem != null)
         {
-            if (!otherInventory.CheckIfFull())
+            if (!otherInventory.CheckIfFull() && GameData.money >= thisSlot.myItem.myItem.price)
             {
+                GameData.money -= thisSlot.myItem.myItem.price;
                 Item thisItem = thisSlot.myItem.myItem;
                 Destroy(thisSlot.myItem.gameObject);
                 thisSlot.SetItem(null);
                 thisSlot.UpdateText();
                 otherInventory.SpawnInventoryItem(thisItem);
+                otherInventory.UpdateText();
+                inventory.PlaySound(inventory.buySound);
             }
             else
             {
-                Debug.Log("Full");
+                inventory.PlaySound(inventory.errorSound);
             }
         }
         else

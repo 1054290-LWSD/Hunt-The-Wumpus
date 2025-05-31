@@ -111,7 +111,7 @@ public class CakeHandler : MonoBehaviour
         enemyHandler.moveSpeed *= 0.75f;
         Debug.Log("After" + enemyHandler.moveSpeed);
     }
-    public void RedVelvet(GameObject gameObject)
+    public void RedVelvetCake(GameObject gameObject)
     {
         BulletHandler bulletHandler = gameObject.gameObject.GetComponent<BulletHandler>();
         bulletHandler.damageMult += 5f;

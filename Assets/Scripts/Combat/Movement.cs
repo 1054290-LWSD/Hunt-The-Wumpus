@@ -3,8 +3,6 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using System;
-
-[RequireComponent(typeof(CharacterController))]
 public class Movement : MonoBehaviour
 {
 
