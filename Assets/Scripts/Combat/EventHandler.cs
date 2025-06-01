@@ -35,7 +35,7 @@ public class EventHandler : MonoBehaviour
         {
             enemyHealth *= Math.Pow(1.2f, GameData.levelsCompleted - 8);
         }
-        
+
         SpawnEnemies();
 
     }
@@ -128,7 +128,9 @@ public class EventHandler : MonoBehaviour
         GameObject mostDamageText = deathPanel.transform.Find("MostDamage")?.gameObject;
 
         levelsCompletedText.GetComponent<Text>().text = "Levels Completed:\n " + GameData.levelsCompleted;
-        mostDamageText.GetComponent<Text>().text = "Most Damage\n" + GameData.mostDamage;
+        if (Double.IsInfinity(GameData.mostDamage))
+            GameData.mostDamage = Double.MaxValue;
+        mostDamageText.GetComponent<Text>().text = "Most Damage\n" + SmartFormat(GameData.mostDamage);
         GameData.levelsCompleted = 0;
         GameData.mostDamage = -1;
         GameData.money = 4;
@@ -149,13 +151,15 @@ public class EventHandler : MonoBehaviour
         //GameObject nextButton = levelCompletePanel.transform.Find("Next")?.gameObject;
 
         levelCompleteText.GetComponent<Text>().text = "Level " + (GameData.levelsCompleted + 1) + " Completed";
-        moneyEarnedText.GetComponent<Text>().text = "$ " + moneyGained + " Earned\n$ " + (GameData.money >= 25 ? 5 : (int)(GameData.money / 5 )) + " Earned\n";
-        mostDamageText.GetComponent<Text>().text = "Most Damage\n" + mostDamage;
+        moneyEarnedText.GetComponent<Text>().text = "$ " + moneyGained + " Earned\n$ " + (GameData.money >= 25 ? 5 : (int)(GameData.money / 5)) + " Interest\n";
+        if (Double.IsInfinity(mostDamage))
+            mostDamage = Double.MaxValue;
+        mostDamageText.GetComponent<Text>().text = "Most Damage\n" + SmartFormat(mostDamage);
 
     }
     public void NextLevel()
     {
-        GameData.money += moneyGained + (GameData.money >= 25 ? 5 : (int)(GameData.money / 5 ));
+        GameData.money += moneyGained + (GameData.money >= 25 ? 5 : (int)(GameData.money / 5));
         GameData.levelsCompleted++;
         if (GameData.mostDamage < mostDamage)
         {
@@ -169,5 +173,43 @@ public class EventHandler : MonoBehaviour
         {
             audioSource.PlayOneShot(aC); // Play without interrupting other sounds
         }
+    }
+    public string SmartFormat(double value = -1)
+    {
+        if (value == -1)
+        {
+            return "Infinity";
+        }
+        if (value >= 1e9 || value <= -1e9 || (value != 0 && Math.Abs(value) < 1e-4))
+        {
+            // Use scientific notation and clean exponent
+            string raw = value.ToString("E3").Replace("+", "");
+            int eIndex = raw.IndexOf('E');
+            string basePart = raw.Substring(0, eIndex);
+            string expPart = raw.Substring(eIndex + 1).TrimStart('0');
+
+            if (expPart.StartsWith("-"))
+            {
+                expPart = "-" + expPart.Substring(1).TrimStart('0');
+            }
+
+            // Handle "E" with no exponent digits (e.g., E0)
+            if (expPart == "" || expPart == "-")
+                expPart = "0";
+
+            return basePart + "E" + expPart;
+        }
+        else if (value == Math.Floor(value))
+        {
+            return value.ToString("0");
+        }
+        else
+        {
+            return value.ToString("0.###");
+        }
+    }
+    public double GetBaseNumEnemies()
+    {
+        return numberOfEnemies;
     }
 }

@@ -19,15 +19,23 @@ public class CakeHandler : MonoBehaviour
         //foreach (InventorySlot invenSlots in inventory.GetInventorySlots())
         for (int i = 0; i < inventory.GetInventorySlots().Length; i++)
         {
-
+            int index = i;
             InventorySlot invenSlots = inventory.GetInventorySlots()[i];
             if (invenSlots.myItem != null)
             {
-                if (invenSlots.myItem.myItem.methodName == "WeddingCake") //Does cake before this if wedding cake
+                while (invenSlots.myItem.myItem.methodName == "WeddingCake" && index != 0) //Does cake before this if wedding cake
                 {
+                    if (index > 0)
+                    {
+                        index--;
+                        invenSlots = inventory.GetInventorySlots()[index];
+                    }
+                    else
+                    {
+                        invenSlots = inventory.GetInventorySlots()[0];
+                    }
 
 
-                    invenSlots = inventory.GetInventorySlots()[i > 0 ? i - 1 : 0];
                 }
             }
             if (invenSlots.myItem != null)
@@ -63,7 +71,7 @@ public class CakeHandler : MonoBehaviour
         Movement playerMovement = gameObject.GetComponent<Movement>();
         playerMovement.SetHealth(playerMovement.health * 2);
         playerMovement.UpdateHealthText();
-        
+
     }
     private void BananaCake(GameObject gameObject)
     {
@@ -79,7 +87,7 @@ public class CakeHandler : MonoBehaviour
     private void BASpongeCake(GameObject gameObject)
     {
         EventHandler eventHandler = gameObject.gameObject.GetComponent<EventHandler>();
-        float health = eventHandler.player.gameObject.GetComponent<Movement>().health;
+        double health = eventHandler.player.gameObject.GetComponent<Movement>().health;
         eventHandler.moneyGained += (int)(health / 20);
     }
     private void BasqueCheeseCake(GameObject gameObject)
@@ -91,7 +99,7 @@ public class CakeHandler : MonoBehaviour
         if (gameObject.GetComponent<BulletHandler>() != null)
         {
             BulletHandler bulletHandler = gameObject.gameObject.GetComponent<BulletHandler>();
-            bulletHandler.damage += 300;
+            bulletHandler.damage += 300.0;
         }
         else if (gameObject.GetComponent<Movement>() != null)
         {
@@ -108,14 +116,15 @@ public class CakeHandler : MonoBehaviour
             bulletTrans.localScale *= 5f;
         }
     }
-    
+
     private void BlueberryCake(GameObject gameObject)
     {
         BulletHandler bulletHandler = gameObject.gameObject.GetComponent<BulletHandler>();
-        bulletHandler.damage += 10f * ((int)(bulletHandler.gunHandler.eventHandler.maxEnemies) - bulletHandler.gunHandler.eventHandler.spawnedEnemies.Count);
+        Debug.Log("Enemies Killed " + ((int)((bulletHandler.gunHandler.eventHandler.maxEnemies) - bulletHandler.gunHandler.eventHandler.spawnedEnemies.Count)));
+        bulletHandler.damage += 10.0 * ((int)((bulletHandler.gunHandler.eventHandler.maxEnemies) - bulletHandler.gunHandler.eventHandler.spawnedEnemies.Count));
         // ^ does calculation for how many enemies killed
     }
-    
+
     private void ButtCake(GameObject gameObject)
     {
         Transform bulletTrans = gameObject.gameObject.GetComponent<Transform>();
@@ -145,16 +154,16 @@ public class CakeHandler : MonoBehaviour
     private void ChocolateCake(GameObject gameObject)
     {
         BulletHandler bulletHandler = gameObject.gameObject.GetComponent<BulletHandler>();
-        bulletHandler.damage += 20;
+        bulletHandler.damage += 20.0;
     }
     private void ChocolateLavaCake(GameObject gameObject)
     {
         BulletHandler bulletHandler = gameObject.gameObject.GetComponent<BulletHandler>();
-        float health = bulletHandler.gunHandler.eventHandler.player.gameObject.GetComponent<Movement>().health;
-        float maxHealth = bulletHandler.gunHandler.eventHandler.player.gameObject.GetComponent<Movement>().GetMaxHealth();
+        double health = bulletHandler.gunHandler.eventHandler.player.gameObject.GetComponent<Movement>().health;
+        double maxHealth = bulletHandler.gunHandler.eventHandler.player.gameObject.GetComponent<Movement>().GetMaxHealth();
         if (health == maxHealth)
         {
-            bulletHandler.damage += 100f;
+            bulletHandler.damage += 100.0;
         }
     }
     private void CoconutCake(GameObject gameObject)
@@ -228,8 +237,8 @@ public class CakeHandler : MonoBehaviour
     {
         BulletHandler bulletHandler = gameObject.gameObject.GetComponent<BulletHandler>();
         Transform bulletTrans = gameObject.gameObject.GetComponent<Transform>();
-        bulletTrans.localScale += Vector3.one * ((int)(bulletHandler.gunHandler.eventHandler.maxEnemies) - bulletHandler.gunHandler.eventHandler.spawnedEnemies.Count);
-        // ^ does calculation for how many enemies killed
+        bulletTrans.localScale += Vector3.one * ((int)bulletHandler.gunHandler.eventHandler.spawnedEnemies.Count);
+        // ^ how many emenies left
     }
     private void MangoCake(GameObject gameObject)
     {
@@ -241,12 +250,12 @@ public class CakeHandler : MonoBehaviour
                 numOtherCakes++;
         }
         Debug.Log(numOtherCakes);
-        bulletHandler.damageMult *= 5f - 0.5f * numOtherCakes;
+        bulletHandler.damageMult *= 5.0 - (0.5 * (double)numOtherCakes);
     }
     private void MatchaCake(GameObject gameObject)
     {
         BulletHandler bulletHandler = gameObject.gameObject.GetComponent<BulletHandler>();
-        bulletHandler.damageMult *= 1f + 0.1f * ((int)(bulletHandler.gunHandler.eventHandler.maxEnemies) - bulletHandler.gunHandler.eventHandler.spawnedEnemies.Count);
+        bulletHandler.damageMult *= 1.0 + 0.1 * ((int)(bulletHandler.gunHandler.eventHandler.maxEnemies) - bulletHandler.gunHandler.eventHandler.spawnedEnemies.Count);
         // ^ does calculation for how many enemies killed
     }
     private void MoonCake(GameObject gameObject)
@@ -257,12 +266,12 @@ public class CakeHandler : MonoBehaviour
     private void NullCake(GameObject gameObject)
     {
         BulletHandler bulletHandler = gameObject.gameObject.GetComponent<BulletHandler>();
-        bulletHandler.damageMult *= UnityEngine.Random.Range(1.0f, 3.0f);
+        bulletHandler.damageMult *= (double)UnityEngine.Random.Range(1.0f, 3.0f);
     }
     private void Pancake(GameObject gameObject)
     {
         BulletHandler bulletHandler = gameObject.gameObject.GetComponent<BulletHandler>();
-        bulletHandler.damageMult *= 1f + 0.1f * (bulletHandler.gunHandler.eventHandler.spawnedEnemies.Count);
+        bulletHandler.damageMult *= 1.0 + 0.1 * (bulletHandler.gunHandler.eventHandler.spawnedEnemies.Count);
         // ^ does calculation for how many enemies left
     }
     private void PoundCake(GameObject gameObject)
@@ -274,18 +283,18 @@ public class CakeHandler : MonoBehaviour
     private void RaspberryCake(GameObject gameObject)
     {
         BulletHandler bulletHandler = gameObject.gameObject.GetComponent<BulletHandler>();
-        float health = bulletHandler.gunHandler.eventHandler.player.gameObject.GetComponent<Movement>().health;
-        bulletHandler.damageMult *= 1f + 0.1f * (int)(health / 10f);
+        double health = bulletHandler.gunHandler.eventHandler.player.gameObject.GetComponent<Movement>().health;
+        bulletHandler.damageMult += 1.0 + 0.1 * ((health / 10.0) - (health / 10.0) % 1);
     }
     private void RedVelvetCake(GameObject gameObject)
     {
         BulletHandler bulletHandler = gameObject.gameObject.GetComponent<BulletHandler>();
-        bulletHandler.damageMult += 5f;
+        bulletHandler.damageMult += 5.0;
     }
     private void StrawberryCake(GameObject gameObject)
     {
         BulletHandler bulletHandler = gameObject.gameObject.GetComponent<BulletHandler>();
-        bulletHandler.damageMult += 1f * ((int)(bulletHandler.gunHandler.eventHandler.maxEnemies) - bulletHandler.gunHandler.eventHandler.spawnedEnemies.Count);
+        bulletHandler.damageMult += 1.0 * ((int)(bulletHandler.gunHandler.eventHandler.maxEnemies) - bulletHandler.gunHandler.eventHandler.spawnedEnemies.Count);
     }   // ^ does calculation for how many enemies killed
     private void TCIAL(GameObject gameObject)
     {
@@ -301,7 +310,7 @@ public class CakeHandler : MonoBehaviour
     private void TresLechesCake(GameObject gameObject)
     {
         BulletHandler bulletHandler = gameObject.gameObject.GetComponent<BulletHandler>();
-        bulletHandler.damageMult *= 3f;
+        bulletHandler.damageMult *= 3.0;
     }
     private void UbeCake(GameObject gameObject)
     {
@@ -310,14 +319,28 @@ public class CakeHandler : MonoBehaviour
         {
             if (i.myItem != null)
             {
-                bulletHandler.damageMult += 3f;
+                bulletHandler.damageMult += 3.0;
             }
         }
-        
+
     }
     private void WeddingCake(GameObject gameObject)
     {
         //Implemented in other places
     }
-    
+    private void ApplePie(GameObject gameObject)
+    {
+        Movement playerMovement = gameObject.GetComponent<Movement>();
+        for (int i = 0; i < (playerMovement.eventHandler.GetBaseNumEnemies() * Math.Pow(1.2f, GameData.levelsCompleted)); i++)
+        {
+            playerMovement.SetHealth(playerMovement.health * 1.5);
+        }
+        playerMovement.UpdateHealthText();
+    }
+    private void KeyLimePie(GameObject gameObject)
+    {
+        BulletHandler bulletHandler = gameObject.gameObject.GetComponent<BulletHandler>();
+        if (GameData.money > 0)
+            bulletHandler.damageMult *= 1 + 1.0 * GameData.money;
+    }
 }

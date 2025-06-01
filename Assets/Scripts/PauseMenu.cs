@@ -11,6 +11,7 @@ public class PauseMenu : MonoBehaviour
     public GameObject CakePanel;
     public GameObject grayOut;
     public GameObject CrossHair;
+    public GameObject Calcs;
     public bool isPaused = false;
     public bool pausePanelOn = false;
     public bool canPause = true;
@@ -66,6 +67,7 @@ public class PauseMenu : MonoBehaviour
         Time.timeScale = 0;
         grayOut.SetActive(true);
         CrossHair.SetActive(false);
+        Calcs.SetActive(false);
     }
     public void Continue()
     {
@@ -77,6 +79,7 @@ public class PauseMenu : MonoBehaviour
         Time.timeScale = 1;
         grayOut.SetActive(false);
         CrossHair.SetActive(true);
+        Calcs.SetActive(true);
     }
     public void OpenPauseMenu()
     {

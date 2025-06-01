@@ -11,8 +11,8 @@ public class Movement : MonoBehaviour
     public EventHandler eventHandler;
     public Camera playerCamera;
     private Rigidbody rb;
-    private float maxHealth = 100f;
-    public float health;
+    private double maxHealth = 100f;
+    public double health;
     private float speed = 12f;
 
     //Gravity rate at which player is pulled down (25f and 30f is pretty good)
@@ -199,18 +199,18 @@ public class Movement : MonoBehaviour
     {
         return Physics.CheckSphere(groundCheck.position, 0.45f, groundLayer);
     }
-    public void TakeDamage(float damage)
+    public void TakeDamage(double damage)
     {
         health -= damage;
         UpdateHealthText();
     }
-    public void SetHealth(float hp)
+    public void SetHealth(double hp)
     {
         maxHealth = hp;
         health = hp;
         UpdateHealthText();
     }
-    public float GetMaxHealth()
+    public double GetMaxHealth()
     {
         return maxHealth;
     }
@@ -219,7 +219,13 @@ public class Movement : MonoBehaviour
         if (healthText != null)
         {
             if (health > 0)
-                healthText.text = "Health: " + health + " / " + maxHealth;
+            {
+                if (Double.IsInfinity(health))
+                    health = Double.MaxValue;
+                if (Double.IsInfinity(maxHealth))
+                    maxHealth = Double.MaxValue;
+                healthText.text = "Health: " + eventHandler.SmartFormat(health) + " / " + eventHandler.SmartFormat(maxHealth);
+            }
             else
             {
                 healthText.text = "";

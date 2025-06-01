@@ -10,11 +10,11 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 7d1ab3124cb748c40bc834615608d145, type: 3}
-  m_Name: RaspberryCake
+  m_Name: PIE 2
   m_EditorClassIdentifier: 
-  sprite: {fileID: 21300000, guid: 80706c02a0d21f442a3c0d316ae3e978, type: 3}
-  methodName: RaspberryCake
-  description: 'Raspberry Cake: +1 Damage Mult + 0.1 per 10 health.'
-  rarity: 2
-  price: 9
-  triggerEvents: 01000000
+  sprite: {fileID: 0}
+  methodName: name
+  description: Test
+  rarity: 3
+  price: -1
+  triggerEvents: 

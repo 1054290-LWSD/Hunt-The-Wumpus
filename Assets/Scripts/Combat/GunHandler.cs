@@ -1,9 +1,12 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class GunHandler : MonoBehaviour
 {
+    public Text damageText;
+    public Text damageMultText;
     public GameObject projectilePrefab;  // Assign in Inspector
     private float projectileSpeed = 50f;  // Adjustable speed
     public float coolDownTimer = 0;

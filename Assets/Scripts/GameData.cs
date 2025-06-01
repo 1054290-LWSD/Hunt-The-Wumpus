@@ -10,6 +10,7 @@ public static class GameData
     {
         common,
         uncommon,
-        rare
+        rare,
+        legendary
     }
 }

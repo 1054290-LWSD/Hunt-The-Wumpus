@@ -3,8 +3,8 @@ using System;
 
 public class BulletHandler : MonoBehaviour
 {
-    public float damage = 10f; // Set how much damage the bullet does
-    public float damageMult = 1f; 
+    public double damage = 10f; // Set how much damage the bullet does
+    public double damageMult = 1f;
     private int maxBounces = 3;
     private int bounceCount = 0;
     public bool hasHit = false;
@@ -19,6 +19,12 @@ public class BulletHandler : MonoBehaviour
         if (enemy != null)
         {
             // If it has EnemyHandler, deal damage
+            if (Double.IsInfinity(damage))
+                damage = Double.MaxValue;
+            if (Double.IsInfinity(damageMult))
+                damageMult = Double.MaxValue;
+            gunHandler.damageText.text = gunHandler.eventHandler.SmartFormat(damage);
+            gunHandler.damageMultText.text = gunHandler.eventHandler.SmartFormat(damageMult);
             enemy.DealDamage(damage * damageMult);
             cakeHandler.runCakes(gameObject, CakeEventEnums.onBulletHit);
             hasHit = true;

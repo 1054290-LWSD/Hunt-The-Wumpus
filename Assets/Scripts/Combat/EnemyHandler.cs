@@ -98,11 +98,11 @@ public class EnemyHandler : MonoBehaviour
             Destroy(attack, 0.25f); // Auto-destroy after 0.1s
         }
     }
-    public void DealDamage(float damage)
+    public void DealDamage(double damage)
     {
         eventHandler.PlaySound(eventHandler.hitSound);
         eventHandler.UpdateMostDamage(damage);
-        health -= (int)damage;
+        health -= damage;
         if (health <= 0)
         {
             if (eventHandler != null)
@@ -118,7 +118,7 @@ public class EnemyHandler : MonoBehaviour
     {
         if (healthText != null)
         {
-            healthText.text = (health - (health % 1)).ToString() + " HP";
+            healthText.text = ((int)health).ToString() + " HP";
         }
     }
     public void SetHealth(double hp)
