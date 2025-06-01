@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   sprite: {fileID: 21300000, guid: b846ed6a5f5253b4298b5f62d72745b2, type: 3}
   methodName: RedVelvetCake
-  description: 'Red Velvet Cake: +5 Damage Mult'
+  description: 'Red Velvet Cake: +5 Damage Mult.'
   rarity: 0
   price: 2
   triggerEvents: 01000000

@@ -108,6 +108,14 @@ public class CakeHandler : MonoBehaviour
             bulletTrans.localScale *= 5f;
         }
     }
+    
+    private void BlueberryCake(GameObject gameObject)
+    {
+        BulletHandler bulletHandler = gameObject.gameObject.GetComponent<BulletHandler>();
+        bulletHandler.damage += 10f * ((int)(bulletHandler.gunHandler.eventHandler.maxEnemies) - bulletHandler.gunHandler.eventHandler.spawnedEnemies.Count);
+        // ^ does calculation for how many enemies killed
+    }
+    
     private void ButtCake(GameObject gameObject)
     {
         Transform bulletTrans = gameObject.gameObject.GetComponent<Transform>();
@@ -168,7 +176,7 @@ public class CakeHandler : MonoBehaviour
             List<GameObject> enemies = gunHandler.eventHandler.spawnedEnemies;
             if (enemies.Count == 0) return;
             List<GameObject> targets = new List<GameObject>();
-            if (enemies.Count == 1) //shoots both at the last enemy
+            if (enemies.Count == 1)
             {
                 targets.Add(enemies[0]);
                 targets.Add(enemies[0]);
@@ -181,14 +189,21 @@ public class CakeHandler : MonoBehaviour
                     targets.Add(enemy);
                 }
             }
-            foreach (GameObject enemy in targets) //shoots twice, could be more
-            {
-                GameObject newBullet = gunHandler.Shoot(true);
 
-                Rigidbody rb = newBullet.GetComponent<Rigidbody>();
-                Vector3 direction = (enemy.transform.position - newBullet.transform.position).normalized;
-                rb.velocity = direction * rb.velocity.magnitude;
-            }
+            StartCoroutine(CupcakeCourtine(targets, gunHandler));
+        }
+
+    }
+    private IEnumerator CupcakeCourtine(List<GameObject> targets, GunHandler gunHandler)
+    {
+        for (int i = 0; i < targets.Count; i++)
+        {
+            yield return new WaitForSeconds(0.1f * (i + 1));
+
+            GameObject newBullet = gunHandler.Shoot(true);
+            Rigidbody rb = newBullet.GetComponent<Rigidbody>();
+            Vector3 direction = (targets[i].transform.position - newBullet.transform.position).normalized;
+            rb.velocity = direction * rb.velocity.magnitude;
         }
     }
     private void GingerBreadCake(GameObject gameObject)
@@ -209,6 +224,31 @@ public class CakeHandler : MonoBehaviour
         yield return new WaitForSeconds(2f);
         enemyHandler.moveSpeed = ogValue;
     }
+    private void LemonCake(GameObject gameObject)
+    {
+        BulletHandler bulletHandler = gameObject.gameObject.GetComponent<BulletHandler>();
+        Transform bulletTrans = gameObject.gameObject.GetComponent<Transform>();
+        bulletTrans.localScale += Vector3.one * ((int)(bulletHandler.gunHandler.eventHandler.maxEnemies) - bulletHandler.gunHandler.eventHandler.spawnedEnemies.Count);
+        // ^ does calculation for how many enemies killed
+    }
+    private void MangoCake(GameObject gameObject)
+    {
+        BulletHandler bulletHandler = gameObject.gameObject.GetComponent<BulletHandler>();
+        int numOtherCakes = 0;
+        foreach (InventorySlot i in inventory.GetInventorySlots())
+        {
+            if (i.myItem != null && i.myItem.myItem.methodName != "MangoCake")
+                numOtherCakes++;
+        }
+        Debug.Log(numOtherCakes);
+        bulletHandler.damageMult *= 5f - 0.5f * numOtherCakes;
+    }
+    private void MatchaCake(GameObject gameObject)
+    {
+        BulletHandler bulletHandler = gameObject.gameObject.GetComponent<BulletHandler>();
+        bulletHandler.damageMult *= 1f + 0.1f * ((int)(bulletHandler.gunHandler.eventHandler.maxEnemies) - bulletHandler.gunHandler.eventHandler.spawnedEnemies.Count);
+        // ^ does calculation for how many enemies killed
+    }
     private void MoonCake(GameObject gameObject)
     {
         EnemyHandler enemyHandler = gameObject.gameObject.GetComponent<EnemyHandler>();
@@ -217,7 +257,13 @@ public class CakeHandler : MonoBehaviour
     private void NullCake(GameObject gameObject)
     {
         BulletHandler bulletHandler = gameObject.gameObject.GetComponent<BulletHandler>();
-        bulletHandler.damageMult *= UnityEngine.Random.Range(1.0f, 3.0f); ;
+        bulletHandler.damageMult *= UnityEngine.Random.Range(1.0f, 3.0f);
+    }
+    private void Pancake(GameObject gameObject)
+    {
+        BulletHandler bulletHandler = gameObject.gameObject.GetComponent<BulletHandler>();
+        bulletHandler.damageMult *= 1f + 0.1f * (bulletHandler.gunHandler.eventHandler.spawnedEnemies.Count);
+        // ^ does calculation for how many enemies left
     }
     private void PoundCake(GameObject gameObject)
     {
@@ -241,6 +287,17 @@ public class CakeHandler : MonoBehaviour
         BulletHandler bulletHandler = gameObject.gameObject.GetComponent<BulletHandler>();
         bulletHandler.damageMult += 1f * ((int)(bulletHandler.gunHandler.eventHandler.maxEnemies) - bulletHandler.gunHandler.eventHandler.spawnedEnemies.Count);
     }   // ^ does calculation for how many enemies killed
+    private void TCIAL(GameObject gameObject)
+    {
+        EnemyHandler enemyHandler = gameObject.gameObject.GetComponent<EnemyHandler>();
+        EventHandler eventHandler = enemyHandler.GetEventHandler();
+        if (eventHandler.spawnedEnemies.Count == 0) return;
+        List<GameObject> candidates = new List<GameObject>(eventHandler.spawnedEnemies);
+        candidates.Remove(gameObject);
+
+        GameObject randomEnemy = candidates[UnityEngine.Random.Range(0, candidates.Count)];
+        randomEnemy.transform.position = gameObject.transform.position;
+    }
     private void TresLechesCake(GameObject gameObject)
     {
         BulletHandler bulletHandler = gameObject.gameObject.GetComponent<BulletHandler>();

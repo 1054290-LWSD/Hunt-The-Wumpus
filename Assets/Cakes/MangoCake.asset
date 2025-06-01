@@ -10,11 +10,11 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 7d1ab3124cb748c40bc834615608d145, type: 3}
-  m_Name: BananaCake
+  m_Name: MangoCake
   m_EditorClassIdentifier: 
-  sprite: {fileID: 21300000, guid: dfe03ab848bed414cbe787fed6e634e6, type: 3}
-  methodName: BananaCake
-  description: 'Banana Cake: 2x Fire Rate.'
-  rarity: 1
+  sprite: {fileID: 21300000, guid: 63fb49bb668b95c4fb3057b80487049e, type: 3}
+  methodName: MangoCake
+  description: 'Mango Cake: x5 Damage Mult, -0.5x per non Mango Cake.'
+  rarity: 0
   price: 5
   triggerEvents: 01000000

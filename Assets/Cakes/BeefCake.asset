@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   sprite: {fileID: 21300000, guid: a7c94d46d415a4b46b75f561c36770d3, type: 3}
   methodName: BeefCake
-  description: 'Beef Cake: x0.5 Health, +300 Damage'
+  description: 'Beef Cake: x0.5 Health, +300 Damage.'
   rarity: 2
   price: 7
   triggerEvents: 0600000001000000

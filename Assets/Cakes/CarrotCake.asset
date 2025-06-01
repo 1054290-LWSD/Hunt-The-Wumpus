@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   sprite: {fileID: 21300000, guid: a9f74f617eebc784eb6dce4c7b75e659, type: 3}
   methodName: CarrotCake
-  description: 'Carrot Cake: x2 Bullet speed'
+  description: 'Carrot Cake: x2 Bullet speed.'
   rarity: 0
   price: 3
   triggerEvents: 01000000

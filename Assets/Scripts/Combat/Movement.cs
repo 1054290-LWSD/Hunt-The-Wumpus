@@ -17,7 +17,7 @@ public class Movement : MonoBehaviour
 
     //Gravity rate at which player is pulled down (25f and 30f is pretty good)
     private float gravity = 25f;
-    private float jumpStrength = 30f;
+    private float jumpStrength = 40f;
 
     //Mouse Sensitivity
     private float lookSpeed = 1.5f;

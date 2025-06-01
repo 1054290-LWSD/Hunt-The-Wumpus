@@ -107,6 +107,7 @@ public class EnemyHandler : MonoBehaviour
         {
             if (eventHandler != null)
                 eventHandler.RemoveEnemy(gameObject);
+            eventHandler.cakeHandler.runCakes(gameObject, CakeEventEnums.onEnemyDie);
             Destroy(gameObject);
             return;
         }
@@ -127,5 +128,9 @@ public class EnemyHandler : MonoBehaviour
     public double GetHealth()
     {
         return health;
+    }
+    public EventHandler GetEventHandler()
+    {
+        return eventHandler;
     }
 }

@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   sprite: {fileID: 21300000, guid: ed205d48d50be6c49ae63a435b9802f4, type: 3}
   methodName: IcecreamCake
-  description: 'Icecream Cake: Freeze Enemies for 2 seconds on hit'
+  description: 'Icecream Cake: Freeze Enemies for 2 seconds on hit.'
   rarity: 1
   price: 6
   triggerEvents: 04000000
