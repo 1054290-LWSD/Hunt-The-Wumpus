@@ -15,5 +15,6 @@ MonoBehaviour:
   sprite: {fileID: 21300000, guid: 21eb996216c1e8b409102bd11d1e8ede, type: 3}
   methodName: AppleCake
   description: 'Apple Cake: 2x Health.'
-  price: -1
+  rarity: 1
+  price: 6
   triggerEvents: 06000000

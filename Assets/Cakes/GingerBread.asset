@@ -10,10 +10,11 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 7d1ab3124cb748c40bc834615608d145, type: 3}
-  m_Name: BibicallyAccuratePoundCake
+  m_Name: GingerBread
   m_EditorClassIdentifier: 
-  sprite: {fileID: 21300000, guid: 95472b02dfb86df439bd68638172a077, type: 3}
-  methodName: BAPoundCake
-  description: 'Biblically Accurate Pound Cake: Makes Enemies 0.25x the speed.'
-  price: -1
-  triggerEvents: 03000000
+  sprite: {fileID: 21300000, guid: 718e96552ed860b4f96cfe6eefe81a99, type: 3}
+  methodName: GingerBread
+  description: 'Ginger Bread: +3 $ on level complete.'
+  rarity: 0
+  price: 4
+  triggerEvents: 

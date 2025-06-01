@@ -9,8 +9,14 @@ public class EventHandler : MonoBehaviour
     public Transform player;
     public Text enemyCountText;
     public GameObject levelCompletePanel;
+    public GameObject deathPanel;
+    public AudioSource audioSource;
+    public AudioClip hitSound;
+
+    public int moneyGained = 4;
 
     private double numberOfEnemies = 5f;
+    public double maxEnemies;
     private double enemyHealth = 50f;
     private float spawnRadius = 150f;
     private double mostDamage = -1;
@@ -23,8 +29,13 @@ public class EventHandler : MonoBehaviour
 
     void Start()
     {
-        numberOfEnemies = numberOfEnemies * Math.Pow(1.25f, GameData.levelsCompleted);
-        enemyHealth = enemyHealth * Math.Pow(2.5f, GameData.levelsCompleted);
+        maxEnemies = numberOfEnemies * Math.Pow(1.2f, GameData.levelsCompleted);
+        enemyHealth = enemyHealth * Math.Pow(1.5f, GameData.levelsCompleted);
+        if (GameData.levelsCompleted >= 8)
+        {
+            enemyHealth *= Math.Pow(1.2f, GameData.levelsCompleted - 8);
+        }
+        
         SpawnEnemies();
 
     }
@@ -49,7 +60,7 @@ public class EventHandler : MonoBehaviour
     {
         spawnedEnemies.Clear();
 
-        for (int i = 0; i < numberOfEnemies; i++)
+        for (int i = 0; i < maxEnemies; i++)
         {
             float angle = UnityEngine.Random.Range(0f, 360f);
             float radius = UnityEngine.Random.Range(spawnRadius * 0.5f, spawnRadius);
@@ -103,10 +114,33 @@ public class EventHandler : MonoBehaviour
             }
         }
     }
-    public void EndLevel()
+    public void TriggerDie()
     {
+        if (GameData.mostDamage < mostDamage)
+        {
+            GameData.mostDamage = mostDamage;
+        }
         pauseMenu.canPause = false;
         pauseMenu.Pause();
+        deathPanel.SetActive(true);
+
+        GameObject levelsCompletedText = deathPanel.transform.Find("LevelsCompleted")?.gameObject;
+        GameObject mostDamageText = deathPanel.transform.Find("MostDamage")?.gameObject;
+
+        levelsCompletedText.GetComponent<Text>().text = "Levels Completed:\n " + GameData.levelsCompleted;
+        mostDamageText.GetComponent<Text>().text = "Most Damage\n" + GameData.mostDamage;
+        GameData.levelsCompleted = 0;
+        GameData.mostDamage = -1;
+        GameData.money = 4;
+        GameData.cakes.Clear();
+    }
+    public void EndLevel()
+    {
+        cakeHandler.runCakes(gameObject, CakeEventEnums.onLevelComplete);
+        pauseMenu.canPause = false;
+        pauseMenu.Pause();
+        pauseMenu.CloseCakeMenu();
+        pauseMenu.ClosePauseMenu();
         levelCompletePanel.SetActive(true);
 
         GameObject levelCompleteText = levelCompletePanel.transform.Find("LevelComplete")?.gameObject;
@@ -115,19 +149,25 @@ public class EventHandler : MonoBehaviour
         //GameObject nextButton = levelCompletePanel.transform.Find("Next")?.gameObject;
 
         levelCompleteText.GetComponent<Text>().text = "Level " + (GameData.levelsCompleted + 1) + " Completed";
-        moneyEarnedText.GetComponent<Text>().text = "$ " + 4 + " Earned";
+        moneyEarnedText.GetComponent<Text>().text = "$ " + moneyGained + " Earned\n$ " + (GameData.money >= 25 ? 5 : (int)(GameData.money / 5 )) + " Earned\n";
         mostDamageText.GetComponent<Text>().text = "Most Damage\n" + mostDamage;
 
     }
     public void NextLevel()
     {
-        GameData.money += 4;
+        GameData.money += moneyGained + (GameData.money >= 25 ? 5 : (int)(GameData.money / 5 ));
         GameData.levelsCompleted++;
         if (GameData.mostDamage < mostDamage)
         {
-            GameData.mostDamage = mostDamage
+            GameData.mostDamage = mostDamage;
         }
         levelManger.changesScene("Shop");
     }
-    
+    public void PlaySound(AudioClip aC)
+    {
+        if (audioSource != null && aC != null)
+        {
+            audioSource.PlayOneShot(aC); // Play without interrupting other sounds
+        }
+    }
 }

@@ -4,11 +4,13 @@ using UnityEngine;
 
 public class PauseMenu : MonoBehaviour
 {
+    
     public Movement moveScript;
     public GunHandler gunScript;
     public GameObject PausePanel;
     public GameObject CakePanel;
     public GameObject grayOut;
+    public GameObject CrossHair;
     public bool isPaused = false;
     public bool pausePanelOn = false;
     public bool canPause = true;
@@ -63,6 +65,7 @@ public class PauseMenu : MonoBehaviour
         isPaused = true;
         Time.timeScale = 0;
         grayOut.SetActive(true);
+        CrossHair.SetActive(false);
     }
     public void Continue()
     {
@@ -73,6 +76,7 @@ public class PauseMenu : MonoBehaviour
         isPaused = false;
         Time.timeScale = 1;
         grayOut.SetActive(false);
+        CrossHair.SetActive(true);
     }
     public void OpenPauseMenu()
     {

@@ -14,6 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   sprite: {fileID: 21300000, guid: 1679c0568d309354a922083ae72e16f0, type: 3}
   methodName: BASpongeCake
-  description: '"Sponge" Cake: Moves Enemies closer on hit.'
-  price: 4
-  triggerEvents: 04000000
+  description: '"Sponge" Cake: +1 $ per 20 Health at end of level.'
+  rarity: 1
+  price: 6
+  triggerEvents: 09000000

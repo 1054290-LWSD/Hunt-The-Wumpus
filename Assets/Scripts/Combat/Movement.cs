@@ -8,6 +8,7 @@ public class Movement : MonoBehaviour
 
     //Put camera in unity. should be at top of head.
     public CakeHandler cakeHandler;
+    public EventHandler eventHandler;
     public Camera playerCamera;
     private Rigidbody rb;
     private float maxHealth = 100f;
@@ -32,9 +33,9 @@ public class Movement : MonoBehaviour
     private float curSpeedY;
 
     //The Dot Product [-1,1] the player is looking each of the directions.
-    public float xLook = 0f;
-    public float yLook = 0f;
-    public float zLook = 0f;
+    private float xLook = 0f;
+    private float yLook = 0f;
+    private float zLook = 0f;
 
     public float fps = 0f;
     //deltaTime is the time since last frame, used for physics calculations and other things
@@ -42,9 +43,6 @@ public class Movement : MonoBehaviour
 
     private float rotationX = 0;
     private bool hasStarted = false;
-
-    //Might be useless, don't delete
-    private CharacterController characterController;
 
     //The sphere used for checking if player is grounded and the layer in which the grounded state is
     [SerializeField] private Transform groundCheck;
@@ -210,6 +208,11 @@ public class Movement : MonoBehaviour
     {
         maxHealth = hp;
         health = hp;
+        UpdateHealthText();
+    }
+    public float GetMaxHealth()
+    {
+        return maxHealth;
     }
     public void UpdateHealthText()
     {
@@ -220,7 +223,7 @@ public class Movement : MonoBehaviour
             else
             {
                 healthText.text = "";
-                Debug.Log("Dead");
+                eventHandler.TriggerDie();
             }
 
         }

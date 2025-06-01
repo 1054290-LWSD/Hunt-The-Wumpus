@@ -9,7 +9,8 @@ public class BulletHandler : MonoBehaviour
     private int bounceCount = 0;
     public bool hasHit = false;
     public CakeHandler cakeHandler;
-
+    public GunHandler gunHandler;
+    public bool isExtra;
     void OnCollisionEnter(Collision collision)
     {
         // Try to get the EnemyHandler component

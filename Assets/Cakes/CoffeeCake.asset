@@ -15,5 +15,6 @@ MonoBehaviour:
   sprite: {fileID: 21300000, guid: 01413b0d3d86e2e4680a391e00e4ab48, type: 3}
   methodName: CoffeeCake
   description: 'Coffee Cake: Bullets move 3x as fast.'
-  price: 3
+  rarity: 1
+  price: 5
   triggerEvents: 01000000

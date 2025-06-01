@@ -15,5 +15,6 @@ MonoBehaviour:
   sprite: {fileID: 21300000, guid: 2724740626ec43345b06fa0734d13a43, type: 3}
   methodName: WeddingCake
   description: 'Wedding Cake: Copies the effect of the cake before this.'
-  price: -1
+  rarity: 2
+  price: 7
   triggerEvents: 

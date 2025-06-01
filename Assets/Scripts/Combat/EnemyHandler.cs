@@ -100,10 +100,9 @@ public class EnemyHandler : MonoBehaviour
     }
     public void DealDamage(float damage)
     {
+        eventHandler.PlaySound(eventHandler.hitSound);
         eventHandler.UpdateMostDamage(damage);
         health -= (int)damage;
-
-
         if (health <= 0)
         {
             if (eventHandler != null)
@@ -124,5 +123,9 @@ public class EnemyHandler : MonoBehaviour
     public void SetHealth(double hp)
     {
         health = hp;
+    }
+    public double GetHealth()
+    {
+        return health;
     }
 }

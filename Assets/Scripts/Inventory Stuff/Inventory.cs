@@ -19,6 +19,7 @@ public class Inventory : MonoBehaviour
     public bool isStore = false;
     public bool shouldUnspawn = false;
     public Inventory otherInventory;
+    public CakeHandler cakeHandler;
     public Text moneyText;
     public Text rerollText;
     [SerializeField] InventorySlot[] inventorySlots;
@@ -86,13 +87,13 @@ public class Inventory : MonoBehaviour
             carriedItem.canvasGroup.blocksRaycasts = false;
             item.transform.SetParent(draggablesTransform);
             item.transform.SetParent(draggablesTransform, worldPositionStays: true);
-            
-            deleteButton.SetActive(true);
-            Debug.Log(isStore);
+            if (deleteButton != null)
+                deleteButton.SetActive(true);
         }
         else
         {
-            deleteButton.SetActive(false);
+            if (deleteButton != null)
+                deleteButton.SetActive(false);
         }
     }
     public void SpawnInventoryItem(Item item = null)
@@ -124,7 +125,7 @@ public class Inventory : MonoBehaviour
 
     Item PickRandomItem()
     {
-        int random = 0;
+        // Gather items already owned
         List<Item> itemsHad = new List<Item>();
         foreach (InventorySlot i in inventorySlots)
         {
@@ -133,7 +134,8 @@ public class Inventory : MonoBehaviour
                 itemsHad.Add(i.myItem.myItem);
             }
         }
-        if (isStore)
+
+        if (isStore && otherInventory != null)
         {
             foreach (InventorySlot i in otherInventory.inventorySlots)
             {
@@ -142,20 +144,52 @@ public class Inventory : MonoBehaviour
                     itemsHad.Add(i.myItem.myItem);
                 }
             }
-
         }
+
+        // Get remaining items to choose from
         HashSet<Item> itemsHadSet = new HashSet<Item>(itemsHad);
         List<Item> possibleItems = items.Where(item => !itemsHadSet.Contains(item)).ToList();
+        if (cakeHandler.HasBasque())
+        {
+            possibleItems = items.ToList();
+        }
+        
         if (possibleItems.Count == 0)
         {
-            return items[0];
+            return items[0]; // fallback to item with index 0
         }
 
-        random = UnityEngine.Random.Range(0, possibleItems.Count - 1);
-        // Debug.Log(string.Join(", ", possibleItems));
-        // Debug.Log("Random Num: " + random + "  Item: " + items[random]);
-        return possibleItems[random];
+        // Separate by rarity
+        var commons = possibleItems.Where(i => i.rarity == GameData.Rarity.common).ToList();
+        var uncommons = possibleItems.Where(i => i.rarity == GameData.Rarity.uncommon).ToList();
+        var rares = possibleItems.Where(i => i.rarity == GameData.Rarity.rare).ToList();
+
+        float roll = UnityEngine.Random.Range(0f, 1f); // 0.0 to 1.0
+
+        if (roll < 0.70f && commons.Count > 0)
+        {
+            Debug.Log("Common");
+            return commons[UnityEngine.Random.Range(0, commons.Count)];
+        }
+        else if (roll < 0.95f && uncommons.Count > 0)
+        {
+            Debug.Log("Uncommon");
+            return uncommons[UnityEngine.Random.Range(0, uncommons.Count)];
+        }
+        else if (rares.Count > 0)
+        {
+            Debug.Log("Rare");
+            return rares[UnityEngine.Random.Range(0, rares.Count)];
+        }
+
+        // Fallbacks if chosen rarity group is empty
+        if (commons.Count > 0) return commons[UnityEngine.Random.Range(0, commons.Count)];
+        if (uncommons.Count > 0) return uncommons[UnityEngine.Random.Range(0, uncommons.Count)];
+        if (rares.Count > 0) return rares[UnityEngine.Random.Range(0, rares.Count)];
+
+        return items[0]; // fallback
     }
+
     public void Reroll(bool isFree)
     {
         if (GameData.money >= rerollCost || isFree)

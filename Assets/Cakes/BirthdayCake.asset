@@ -15,5 +15,6 @@ MonoBehaviour:
   sprite: {fileID: 21300000, guid: 2e9f0cc2d0dd6fc4aa008a209f189b85, type: 3}
   methodName: BirthdayCake
   description: 'Birthday Cake: x5 Radius of Bullets on hit.'
-  price: -1
+  rarity: 1
+  price: 6
   triggerEvents: 02000000

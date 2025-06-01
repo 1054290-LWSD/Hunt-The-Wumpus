@@ -15,5 +15,5 @@ MonoBehaviour:
   sprite: {fileID: 21300000, guid: 2b295656f6642ff4a9225738c78ee29a, type: 3}
   methodName: CherryCake
   description: 'Cherry Cake: +3 Radius of Bullet on hit.'
-  price: -1
+  price: 5
   triggerEvents: 02000000
