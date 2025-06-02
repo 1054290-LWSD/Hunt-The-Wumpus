@@ -22,21 +22,21 @@ public class LevelManger : MonoBehaviour
     }
     private void Update()
     {
-        if (Input.GetKeyDown("1"))
-        {
-            changesScene(level_1);
-        }
-        if (Input.GetKeyDown("2"))
-        {
-            changesScene(level_2);
-        }
-        if (Input.GetKeyDown("3"))
-        {
-            changesScene(level_3);
-        }
-        if (Input.GetKeyDown("4"))
-        {
-            changesScene(level_4);
-        }
+        // if (Input.GetKeyDown("1"))
+        // {
+        //     changesScene(level_1);
+        // }
+        // if (Input.GetKeyDown("2"))
+        // {
+        //     changesScene(level_2);
+        // }
+        // if (Input.GetKeyDown("3"))
+        // {
+        //     changesScene(level_3);
+        // }
+        // if (Input.GetKeyDown("4"))
+        // {
+        //     changesScene(level_4);
+        // }
     }
 }

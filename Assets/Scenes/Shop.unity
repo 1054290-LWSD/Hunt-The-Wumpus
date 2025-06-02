@@ -1803,6 +1803,7 @@ GameObject:
   - component: {fileID: 742766489}
   - component: {fileID: 742766488}
   - component: {fileID: 742766487}
+  - component: {fileID: 742766490}
   m_Layer: 10
   m_Name: InputField (TMP)
   m_TagString: Untagged
@@ -1966,6 +1967,20 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 742766485}
   m_CullTransparentMesh: 1
+--- !u!114 &742766490
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 742766485}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3141b2f3a07d4f64581ead0f008c6f16, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  inventory: {fileID: 1225058451}
+  inputField: {fileID: 742766487}
 --- !u!1 &860075941
 GameObject:
   m_ObjectHideFlags: 0
@@ -3549,7 +3564,6 @@ MonoBehaviour:
   reorollSound: {fileID: 0}
   audioSource: {fileID: 0}
   deleteButton: {fileID: 1486846279}
-  inputField: {fileID: 742766487}
   tooltipTimer: 0
   isStore: 0
   shouldUnspawn: 0
@@ -5856,7 +5870,6 @@ MonoBehaviour:
   reorollSound: {fileID: 8300000, guid: 886e7994858701e45a191acb5fd726ba, type: 3}
   audioSource: {fileID: 1060437184}
   deleteButton: {fileID: 1486846279}
-  inputField: {fileID: 0}
   tooltipTimer: 0
   isStore: 1
   shouldUnspawn: 0

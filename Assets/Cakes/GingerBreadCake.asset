@@ -10,11 +10,11 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 7d1ab3124cb748c40bc834615608d145, type: 3}
-  m_Name: PIE 4
+  m_Name: GingerBreadCake
   m_EditorClassIdentifier: 
-  sprite: {fileID: 0}
-  methodName: name
-  description: Test
-  rarity: 3
-  price: -1
-  triggerEvents: 
+  sprite: {fileID: 21300000, guid: 718e96552ed860b4f96cfe6eefe81a99, type: 3}
+  methodName: GingerBreadCake
+  description: 'Ginger Bread: +3 $ on level complete.'
+  rarity: 0
+  price: 4
+  triggerEvents: 09000000

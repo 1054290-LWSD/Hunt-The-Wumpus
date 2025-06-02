@@ -63,9 +63,9 @@ public class EnemyHandler : MonoBehaviour
             direction.y = 0;
 
             //sets enemy position to be at correct Y level if bug occurs
-            if (transform.position.y < -100)
+            if (transform.position.y < -30 || transform.position.y > 100)
             {
-                transform.position = new Vector3(transform.position.x, 10, transform.position.z);
+                transform.position = new Vector3(0, 10, 0);
             }
             float distance = direction.magnitude;
             float stopDistance = 2f;

@@ -192,6 +192,11 @@ public class Movement : MonoBehaviour
 
         //applies current velocity in game to the rigid body.
         rb.velocity = new Vector3(xMove, velocity.y, zMove);
+
+        if (transform.position.y < -30 || transform.position.y > 100)
+        {
+            transform.position = new Vector3(0, 10, 0);
+        }
     }
 
     //Checks if you are actually grounded

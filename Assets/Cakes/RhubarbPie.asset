@@ -10,11 +10,11 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 7d1ab3124cb748c40bc834615608d145, type: 3}
-  m_Name: PIE 5
+  m_Name: RhubarbPie
   m_EditorClassIdentifier: 
-  sprite: {fileID: 0}
-  methodName: name
-  description: Test
+  sprite: {fileID: 21300000, guid: 45724771a6cd78647992cac073675ad5, type: 3}
+  methodName: RhubarbPie
+  description: 'Rhubarb Pie:'
   rarity: 3
-  price: -1
+  price: 0
   triggerEvents: 

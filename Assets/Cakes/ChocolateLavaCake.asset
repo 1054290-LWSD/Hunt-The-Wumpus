@@ -17,4 +17,4 @@ MonoBehaviour:
   description: 'Chocolate Lava Cake: +100 Damage if at max health.'
   rarity: 1
   price: 6
-  triggerEvents: 
+  triggerEvents: 01000000

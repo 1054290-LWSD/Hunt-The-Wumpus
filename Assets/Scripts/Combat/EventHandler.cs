@@ -29,11 +29,11 @@ public class EventHandler : MonoBehaviour
 
     void Start()
     {
-        maxEnemies = numberOfEnemies * Math.Pow(1.2f, GameData.levelsCompleted);
-        enemyHealth = enemyHealth * Math.Pow(1.5f, GameData.levelsCompleted);
+        maxEnemies = (int) (numberOfEnemies * Math.Pow(1.1f, GameData.levelsCompleted));
+        enemyHealth = enemyHealth * Math.Pow(1.4f, GameData.levelsCompleted);
         if (GameData.levelsCompleted >= 8)
         {
-            enemyHealth *= Math.Pow(1.2f, GameData.levelsCompleted - 8);
+            enemyHealth *= Math.Pow(1.1f, GameData.levelsCompleted - 8);
         }
 
         SpawnEnemies();
@@ -41,7 +41,7 @@ public class EventHandler : MonoBehaviour
     }
     void Update()
     {
-        if (Input.GetKeyDown(KeyCode.R))
+        if (GameData.isDev && Input.GetKeyDown(KeyCode.R))
         {
             int x = 0;
             while (spawnedEnemies.Count > 0)
@@ -51,7 +51,6 @@ public class EventHandler : MonoBehaviour
                 spawnedEnemies[0].GetComponent<EnemyHandler>().DealDamage(100000);//2147483647
 
             }
-
             //SpawnEnemies();
         }
     }

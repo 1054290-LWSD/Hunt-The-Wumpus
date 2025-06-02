@@ -4,7 +4,7 @@ using System.Linq;
 using System;
 using UnityEngine;
 using UnityEngine.UI;
-using TMPro;
+
 
 public class Inventory : MonoBehaviour
 {
@@ -14,7 +14,6 @@ public class Inventory : MonoBehaviour
     public AudioClip reorollSound;
     public AudioSource audioSource;
     public GameObject deleteButton;
-    public TMP_InputField inputField;
     public static Inventory Singleton;
     public static InventoryItem carriedItem;
     public float tooltipTimer = 0f;
@@ -38,10 +37,6 @@ public class Inventory : MonoBehaviour
 
     void Start()
     {
-        if (inputField != null)
-        {
-            inputField.onEndEdit.AddListener(giveCake);
-        }
         
         Singleton = this;
         if (!isStore)
@@ -175,17 +170,17 @@ public class Inventory : MonoBehaviour
 
         if (roll < 0.70f && commons.Count > 0)
         {
-            Debug.Log("Common");
+            //Debug.Log("Common");
             return commons[UnityEngine.Random.Range(0, commons.Count)];
         }
         else if (roll < 0.95f && uncommons.Count > 0)
         {
-            Debug.Log("Uncommon");
+            //Debug.Log("Uncommon");
             return uncommons[UnityEngine.Random.Range(0, uncommons.Count)];
         }
         else if (rares.Count > 0)
         {
-            Debug.Log("Rare");
+            //Debug.Log("Rare");
             return rares[UnityEngine.Random.Range(0, rares.Count)];
         }
 
@@ -241,6 +236,10 @@ public class Inventory : MonoBehaviour
     {
         return inventorySlots;
     }
+    public Item[] GetItems()
+    {
+        return items;
+    }
     public void deleteItem()
     {
         Destroy(carriedItem.gameObject);
@@ -277,22 +276,5 @@ public class Inventory : MonoBehaviour
         {
             audioSource.PlayOneShot(aC); // Play without interrupting other sounds
         }
-    }
-    public Item FindCake(string str)
-    {
-        foreach (Item i in items)
-        {
-            if (str.ToLower() == i.methodName.ToLower())
-            {
-                return i;
-            }
-        }
-        return null;
-    }
-    public void giveCake(string str)
-    {
-        Debug.Log(str);
-        if (FindCake(str) != null)
-            SpawnInventoryItem(FindCake(str));
     }
 }
